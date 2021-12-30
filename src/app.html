@@ -1,13 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hu">
   <head>
-    <meta charset="utf-8" />
-    <meta name="description" content="" />
-    <link rel="icon" href="/favicon.png" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Az SZTE Móra Ferenc Szakkollégium hálózatához hozzáférést biztosító alkalmazás"
+    />
+    <link rel="icon" href="/icon-72x72.png" />
+    <link rel="manifest" href="/manifest.json" />
     %svelte.head%
   </head>
   <body>
-    <div id="svelte">%svelte.body%</div>
+    <div id="svelte">
+      <noscript>
+        <center>
+          <br /><br />
+          <h1>Nincs engedélyezve a JavaScript.</h1>
+          <br />
+          A böngésződ nem támogatja a javascriptet, ami lehetővé teszi a weboldal használatát.
+          <br />
+          Használd a
+          <a
+            href="https://captiveportal.mora.u-szeged.hu/status-old.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            >régi status oldalt</a
+          >
+          vagy nyisd meg egy másik böngészőben ezt.
+        </center>
+      </noscript>
+      %svelte.body%
+    </div>
   </body>
 </html>
