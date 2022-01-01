@@ -33,8 +33,9 @@
       </noscript>
       %svelte.body%
       <script>
-        document.querySelectorAll('nojs').forEach((x) => x.classList.remove('nojs'));
-        console.log(123);
+        document.querySelectorAll('nojs').forEach(function (x) {
+          x.classList.remove('nojs');
+        });
       </script>
     </div>
   </body>
