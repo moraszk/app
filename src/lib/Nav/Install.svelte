@@ -1,10 +1,6 @@
 <script lang="ts">
-  import { page } from '$app/stores';
   import { browser } from '$app/env';
   import { amount, getPWADisplayMode } from '$lib/storage/pwa-denies';
-
-  $: $page.query.get('pwa') == 'no' && amount.set(100);
-  $: $page.query.get('pwa') == 'yes' && amount.set(0);
 
   $: installer = null as any;
 

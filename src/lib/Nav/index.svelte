@@ -15,21 +15,12 @@
 
   export let open = false;
 
-  let forceNav: null | boolean = null as null | boolean;
-  if ($page.query.get('nav') == 'yes') forceNav = true;
-  else if ($page.query.get('nav') == 'no') forceNav = false;
-
   let prompt: () => unknown;
 </script>
 
 <Skipper />
-{#if forceNav}
-  <input type="checkbox" name="nav-toggler" id="nav-toggler" checked />
-{:else}
   <input type="checkbox" name="nav-toggler" id="nav-toggler" bind:checked={open} />
-{/if}
-{#if forceNav != false}
-  <nav class:nojs={!browser} id="nav" class:forceopen={forceNav}>
+  <nav class:nojs={!browser} id="nav">
     <span class="nav-opener" on:click={() => (open = true)} />
     <span class="nav-opener left" on:click={() => (open = true)} />
 
@@ -249,7 +240,6 @@
     </ul>
   </nav>
   <div class="nav-overlay" on:click={() => (open = false)} />
-{/if}
 
 <style lang="scss">
   .nav-overlay {
@@ -282,8 +272,7 @@
     height: 5rem;
     background-color: transparent;
 
-    #nav-toggler:checked ~ &,
-    &.forceopen {
+    #nav-toggler:checked ~ & {
       box-shadow: 0 0 10px 0 rgb(0 0 0 / 0.2);
       --nav-open: 1;
       width: 16rem;
