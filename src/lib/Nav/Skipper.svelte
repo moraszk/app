@@ -4,6 +4,7 @@
   * {
     position: fixed;
     top: 0px;
+    z-index: 999;
     background-color: #000;
     color: #fff;
     padding: 5px;

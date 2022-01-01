@@ -69,9 +69,9 @@
       margin-left: 5rem;
     }
   }
-  @media screen and (min-width: 900px) {
-    main {
-      // margin-left: 10rem;
-    }
-  }
+  // @media screen and (min-width: 900px) {
+  //   main {
+  //     // margin-left: 10rem;
+  //   }
+  // }
 </style>

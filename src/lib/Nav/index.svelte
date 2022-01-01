@@ -13,40 +13,47 @@
     amoled.set(fullTheme == 'black');
   }
 
-  export let closed = true;
-  $: forceClosed = null as null | boolean;
-  $: nav = $page.query.get('nav');
-  $: nav == 'yes' && (forceClosed = false);
-  $: nav == 'no' && (forceClosed = true);
+  export let open = false;
+
+  let forceNav: null | boolean = null as null | boolean;
+  if ($page.query.get('nav') == 'yes') forceNav = true;
+  else if ($page.query.get('nav') == 'no') forceNav = false;
 
   let prompt: () => unknown;
 </script>
 
 <Skipper />
-{#if !forceClosed}
-  <nav class:nojs={!browser} id="nav" class:closed={forceClosed != null ? forceClosed : closed}>
-    <span class="nav-opener" on:click={() => (closed = false)} />
-    <span class="nav-opener left" on:click={() => (closed = false)} />
+{#if forceNav}
+  <input type="checkbox" name="nav-toggler" id="nav-toggler" checked />
+{:else}
+  <input type="checkbox" name="nav-toggler" id="nav-toggler" bind:checked={open} />
+{/if}
+{#if forceNav != false}
+  <nav class:nojs={!browser} id="nav" class:forceopen={forceNav}>
+    <span class="nav-opener" on:click={() => (open = true)} />
+    <span class="nav-opener left" on:click={() => (open = true)} />
 
     <ul class="nav-header">
       <li>
-        <!-- svelte-ignore a11y-missing-attribute -->
-        <a class="nav-title" on:click={() => (closed = !closed)}>
-          <svg class="icon" viewBox="0 0 448 512">
-            <g>
-              <path
-                d="M224 273L88.37 409a23.78 23.78 0 0 1-33.8 0L32 386.36a23.94 23.94 0 0 1 0-33.89l96.13-96.37L32 159.73a23.94 23.94 0 0 1 0-33.89l22.44-22.79a23.78 23.78 0 0 1 33.8 0L223.88 239a23.94 23.94 0 0 1 .1 34z"
-              />
-              <path
-                d="M415.89 273L280.34 409a23.77 23.77 0 0 1-33.79 0L224 386.26a23.94 23.94 0 0 1 0-33.89L320.11 256l-96-96.47a23.94 23.94 0 0 1 0-33.89l22.52-22.59a23.77 23.77 0 0 1 33.79 0L416 239a24 24 0 0 1-.11 34z"
-              />
-            </g>
-          </svg>
-          <span class="label title">Moraweb</span>
-        </a>
+        <label for="nav-toggler">
+          <!-- svelte-ignore a11y-missing-attribute -->
+          <a class="nav-title">
+            <svg class="icon" viewBox="0 0 448 512">
+              <g>
+                <path
+                  d="M224 273L88.37 409a23.78 23.78 0 0 1-33.8 0L32 386.36a23.94 23.94 0 0 1 0-33.89l96.13-96.37L32 159.73a23.94 23.94 0 0 1 0-33.89l22.44-22.79a23.78 23.78 0 0 1 33.8 0L223.88 239a23.94 23.94 0 0 1 .1 34z"
+                />
+                <path
+                  d="M415.89 273L280.34 409a23.77 23.77 0 0 1-33.79 0L224 386.26a23.94 23.94 0 0 1 0-33.89L320.11 256l-96-96.47a23.94 23.94 0 0 1 0-33.89l22.52-22.59a23.77 23.77 0 0 1 33.79 0L416 239a24 24 0 0 1-.11 34z"
+                />
+              </g>
+            </svg>
+            <span class="label title">Moraweb</span>
+          </a>
+        </label>
       </li>
     </ul>
-    <ul class="nav-items" on:click={() => (closed = true)}>
+    <ul class="nav-items" on:click={() => (open = false)}>
       <li>
         <a href="/" class="nav-item"
           ><svg
@@ -201,7 +208,7 @@
           </svg> <span class="label">Szabályzat</span></a
         >
       </li>
-      <li id="nav-theme">
+      <li id="nav-theme" on:click={() => setTimeout(() => (open = true), 0)}>
         <!-- svelte-ignore a11y-invalid-attribute -->
         <a
           href=""
@@ -241,7 +248,7 @@
       </li>
     </ul>
   </nav>
-  <div class="nav-overlay" on:click={() => (closed = true)} />
+  <div class="nav-overlay" on:click={() => (open = false)} />
 {/if}
 
 <style lang="scss">
@@ -255,7 +262,7 @@
     z-index: 99;
   }
   // Enable nav overlay above content
-  nav:not(.closed) ~ .nav-overlay {
+  #nav-toggler:checked ~ .nav-overlay {
     display: block;
   }
   nav {
@@ -269,30 +276,14 @@
 
     max-width: 75%;
     transition: width 400ms 150ms ease, box-shadow 400ms 150ms;
-    &.closed {
-      box-shadow: 0px 0 10px 0 rgb(0 0 0 / 0);
-      --nav-open: 0;
-      width: 5rem;
-      height: 5rem;
-      background-color: transparent;
-    }
-    &.nojs {
-      width: 2rem !important;
-      --nav-open: 1;
-      height: 100%;
-      opacity: 0.075;
-      overflow: hidden;
-      svg {
-        padding: 0;
-      }
-      .nav-header,
-      #nav-theme {
-        display: none;
-      }
-    }
+    box-shadow: 0px 0 10px 0 rgb(0 0 0 / 0);
+    --nav-open: 0;
+    width: 5rem;
+    height: 5rem;
+    background-color: transparent;
 
-    &,
-    &:focus-within {
+    #nav-toggler:checked ~ &,
+    &.forceopen {
       box-shadow: 0 0 10px 0 rgb(0 0 0 / 0.2);
       --nav-open: 1;
       width: 16rem;
@@ -310,7 +301,7 @@
   li {
     display: flex;
     width: 100%;
-    & > a {
+    & a {
       text-decoration: none;
       color: #ff7eee;
       display: flex;
@@ -328,6 +319,10 @@
     }
   }
   .nav-header {
+    label {
+      display: flex;
+      width: 100%;
+    }
     a {
       height: 5rem;
       padding: 0 24px;
@@ -419,6 +414,10 @@
       left: 0;
     }
   }
+
+  #nav-toggler {
+    display: none;
+  }
   @media screen and (min-width: 600px) {
     .nav-overlay {
       width: 0;
@@ -428,14 +427,13 @@
       right: unset;
       left: 0;
       min-height: 100%;
-      &,
-      &.closed {
-        background-color: var(--bg-primary);
-      }
+      background-color: var(--bg-primary);
+
       width: 5rem !important;
+      --nav-open: 0 !important;
       &:hover,
       &:focus-within {
-        --nav-open: 1;
+        --nav-open: 1 !important;
         width: 16rem !important;
       }
     }
