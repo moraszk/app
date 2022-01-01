@@ -397,7 +397,7 @@
   #nav-toggler {
     display: none;
   }
-  @media screen and (min-width: 600px) {
+  @media screen and (min-width: $br-md) {
     .nav-overlay {
       width: 0;
     }
@@ -434,7 +434,7 @@
       }
     }
   }
-  @media screen and (min-width: 900px) {
+  @media screen and (min-width: $br-lg) {
     nav {
       width: 16rem !important;
       --nav-open: 1 !important;

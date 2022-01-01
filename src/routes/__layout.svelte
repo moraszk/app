@@ -10,7 +10,9 @@
 <Theme />
 <Nav />
 <main id="main-content">
-  <slot />
+  <div id="ie-fix">
+    <slot />
+  </div>
 </main>
 
 <style global lang="scss">
@@ -47,8 +49,11 @@
     justify-content: center;
     min-height: 90vh;
     margin: 0;
+    --margin-left: 0rem;
+    margin-left: var(--margin-left) !important;
     /* max-width: 420px */
-    padding: 0 max(8px, calc(50vw - 250px));
+    padding: 0 8px; // IE fallback
+    padding: 0 max(8px, calc(50vw - var(--margin-left) / 2 - 210px));
 
     & :global(a) {
       color: #0064c8;
@@ -62,16 +67,20 @@
         color: #0050a0;
       }
     }
-  }
-
-  @media screen and (min-width: 600px) {
-    main {
-      margin-left: 5rem;
+    #ie-fix {
+      float: right;
+      max-width: 420px;
+      // IE 11 does not support `calc` and `display: flex`, content can't be centered
+      max-width: calc(10000vw + var(--anything) * 1px);
     }
   }
-  // @media screen and (min-width: 900px) {
-  //   main {
-  //     // margin-left: 10rem;
-  //   }
-  // }
+
+  @media screen and (min-width: $br-md) {
+    main {
+      margin-left: 5rem;
+      --margin-left: 5rem;
+    }
+  }
+  @media screen and (min-width: $br-lg) {
+  }
 </style>

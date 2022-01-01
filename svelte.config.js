@@ -8,6 +8,7 @@ const config = {
   // for more information about preprocessors
   preprocess: preprocess({
     scss: {
+      prependData: `$br-md: 600px; $br-lg: 992px;`,
       outputStyle: 'compressed',
     },
     postcss: {
