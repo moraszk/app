@@ -3,7 +3,6 @@
   import Skipper from './Skipper.svelte';
   import Install from './Install.svelte';
   import { theme, amoled } from '$lib/storage/theme';
-  import { browser } from '$app/env';
 
   $: fullTheme = $theme == 'dark' ? ($amoled ? 'black' : 'dark') : 'light';
 
@@ -326,6 +325,9 @@
     flex-direction: column-reverse; // mobile
     overflow-y: scroll;
     &::-webkit-scrollbar {
+      width: 0;
+    }
+    &:hover::-webkit-scrollbar {
       width: 0.15em;
     }
     &::-webkit-scrollbar-track {
