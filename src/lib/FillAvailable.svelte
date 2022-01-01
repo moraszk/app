@@ -6,9 +6,3 @@
 </script>
 
 <svelte:window bind:innerHeight />
-
-<style global lang="scss">
-  body {
-    --vh: 1vh;
-  }
-</style>

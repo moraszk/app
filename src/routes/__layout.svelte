@@ -15,6 +15,7 @@
 
 <style global lang="scss">
   body {
+    --vh: 1vh;
     color: var(--text-primary);
     background-color: var(--bg-primary);
     margin: 0;
@@ -24,10 +25,18 @@
     min-height: -webkit-fill-available;
   }
 
+  @mixin no-animation {
+    animation: none !important;
+    transition: none !important;
+  }
   .preload,
   .preload * {
-    transition-duration: 0s !important;
-    transition-delay: 0s !important;
+    @include no-animation();
+  }
+  @media (prefers-reduced-motion) {
+    * {
+      @include no-animation();
+    }
   }
 
   main {
