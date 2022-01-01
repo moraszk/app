@@ -18,11 +18,20 @@
     --bg-primary: #ffffff;
     --bg-secondary: #e4e4e4;
   }
-  :root[theme='dark'] {
+  @mixin dark {
     --bg-primary: #0d1117;
     --bg-secondary: #141418;
     --text-primary: #b6b6b6;
     --text-secondary: #ececec;
+  }
+  :root[theme='dark'] {
+    @include dark();
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([theme]) {
+      @include dark();
+    }
   }
 
   :root[theme='dark'][amoled='amoled'] {
