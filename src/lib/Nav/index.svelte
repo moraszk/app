@@ -20,7 +20,7 @@
 
 <Skipper />
 <input type="checkbox" name="nav-toggler" id="nav-toggler" bind:checked={open} />
-<nav class:nojs={!browser} id="nav">
+<nav id="nav">
   <span class="nav-opener" on:click={() => (open = true)} />
   <span class="nav-opener left" on:click={() => (open = true)} />
 
