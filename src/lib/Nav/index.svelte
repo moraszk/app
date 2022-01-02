@@ -163,7 +163,7 @@
       </Install>
     </CustomPrerender>
     <li>
-      <a href="/terms" class="nav-item">
+      <a href="/termsofuse" class="nav-item">
         <CustomPrerender>
           <svg width="32" height="32" viewBox="0 0 512 512">
             <path
@@ -361,7 +361,6 @@
         padding: 0 1.5rem;
       }
       &.active {
-        // order: -1;
         filter: grayscale(0%);
       }
       &:hover {
@@ -402,13 +401,14 @@
       width: 0;
     }
     nav {
+      box-shadow: 0px 0px 15px rgb(0 0 0 / 0.2);
       flex-direction: column;
       right: unset;
       left: 0;
       min-height: 100%;
       background-color: var(--bg-primary);
 
-      width: 5rem !important;
+      width: var(--nav-width) !important;
       --nav-open: 0 !important;
       &:hover,
       &:focus-within {
@@ -436,7 +436,6 @@
   }
   @media screen and (min-width: $br-lg) {
     nav {
-      width: 16rem !important;
       --nav-open: 1 !important;
     }
   }

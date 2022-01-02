@@ -6,55 +6,60 @@
   <title>Internet státusz</title>
 </svelte:head>
 
-<section id="status">
-  <article>
-    <h1 id="welcome">Üdv $(username)!</h1>
-    <table>
-      <tbody>
-        <tr>
-          <td>Belső IP cím</td>
-          <td>$(ip)</td>
-        </tr>
+<article>
+  <h1 id="welcome">Üdv $(username)!</h1>
+  <table>
+    <tbody>
+      <tr>
+        <td>Belső IP cím</td>
+        <td>$(ip)</td>
+      </tr>
 
-        <tr>
-          <td>Eszköz azonosító</td>
-          <td>$(mac)</td>
-        </tr>
+      <tr>
+        <td>Eszköz azonosító</td>
+        <td>$(mac)</td>
+      </tr>
 
-        <tr>
-          <td>Tiltások:</td>
-          <td>
-            Torrentezés: <span id="torrent-guys" style="color: green">Tiszta vagy!</span><br />
-            Túl sok kapcsolat: <span id="many-connections" style="color: green">Tiszta vagy!</span>
-          </td>
-        </tr>
-        <tr>
-          <td>Internethasználati idő</td>
-          <td>$(uptime)</td>
-        </tr>
-        <tr
-          ><td>Hálózati problémák</td>
-          <td
-            >Ha óránként többször be kell jelentkezned vagy egy alkalmazás nem működik az új
-            hálózaton, akkor jelezd nekünk a
-            <a href="https://support.mora.u-szeged.hu">hiba bejelentő oldalon</a></td
-          ></tr
-        >
-        <tr
-          ><td>Rendszergazdák ábécében</td>
-          <td
-            >Juhász Andor (V/14),<br />
-            Kiss Ádám (III/S),<br />
-            Südi Tamás (I/4),<br />
-            Tajti Viktor (V/14)</td
-          ></tr
-        ></tbody
+      <tr>
+        <td>Tiltások:</td>
+        <td>
+          Torrentezés: <span id="torrent-guys" style="color: green">Tiszta vagy!</span><br />
+          Túl sok kapcsolat: <span id="many-connections" style="color: green">Tiszta vagy!</span>
+        </td>
+      </tr>
+      <tr>
+        <td>Internethasználati idő</td>
+        <td>$(uptime)</td>
+      </tr>
+      <tr
+        ><td>Hálózati problémák</td>
+        <td
+          >Ha óránként többször be kell jelentkezned vagy egy alkalmazás nem működik az új
+          hálózaton, akkor jelezd nekünk a
+          <a href="https://support.mora.u-szeged.hu">hiba bejelentő oldalon</a></td
+        ></tr
       >
-    </table>
-  </article>
-</section>
+      <tr
+        ><td>Rendszergazdák ábécében</td>
+        <td
+          >Juhász Andor (V/14),<br />
+          Kiss Ádám (III/S),<br />
+          Südi Tamás (I/4),<br />
+          Tajti Viktor (V/14)</td
+        ></tr
+      ></tbody
+    >
+  </table>
+</article>
 
-<style>
+<style lang="scss">
+  article {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
   a {
     color: #486173;
   }
@@ -74,8 +79,10 @@
 
   table {
     border-collapse: collapse;
-    width: 100%;
+    /* width: 100%; */
     margin-bottom: 20px;
+    max-width: 420px;
+    width: 90%;
   }
 
   table td {
@@ -88,7 +95,20 @@
     font-weight: 700;
   }
 
-  .dark table td {
-    border-bottom: 1px solid #505050;
+  :root[theme='dark'] table td {
+    border-bottom-color: #505050;
+  }
+
+  a {
+    color: #0064c8;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &:visited {
+      color: #0050a0;
+    }
   }
 </style>
