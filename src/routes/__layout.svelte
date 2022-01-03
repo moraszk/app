@@ -42,18 +42,8 @@
     }
   }
 
-  @mixin no-animation {
-    animation: none !important;
-    transition: none !important;
-  }
-
   .preload,
   .preload * {
-    @include no-animation();
-  }
-  @media (prefers-reduced-motion) {
-    * {
-      @include no-animation();
-    }
+    transition: none !important;
   }
 </style>
