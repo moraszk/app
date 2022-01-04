@@ -1,9 +1,14 @@
 <script lang="ts">
+  import { browser } from '$app/env';
   import '../app.scss';
   import Theme from '$lib/Theme.svelte';
   import Nav from '$lib/Nav/index.svelte';
   import Preload from '$lib/Preload.svelte';
   import FillAvailable from '$lib/FillAvailable.svelte';
+  import { goto } from '$app/navigation';
+  $: browser &&
+    window.location.pathname.endsWith('/') &&
+    goto(window.location.pathname.slice(0, -1));
 </script>
 
 <FillAvailable />
