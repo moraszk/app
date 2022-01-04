@@ -7,8 +7,6 @@
   import { browser } from '$app/env';
 
   interface Status {
-    'link-login': string;
-    'link-logout': string;
     ip: string;
     'logged-in': 'yes' | 'no';
     mac: string;
