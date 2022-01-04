@@ -56,7 +56,7 @@
         <span class="label">Bejelentkezés</span>
       </a>
     </li>
-    <li>
+    <!-- <li>
       <a href="/registration" class="nav-item">
         <CustomPrerender>
           <svg width="32" height="25.6" viewBox="0 0 640 512">
@@ -68,9 +68,14 @@
 
         <span class="label">Regisztráció</span>
       </a>
-    </li>
+    </li> -->
     <li>
-      <a href="https://iptv.mora.u-szeged.hu" target="_blank" rel="noopener noreferrer" class="nav-item">
+      <a
+        href="https://iptv.mora.u-szeged.hu"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="nav-item"
+      >
         <CustomPrerender>
           <svg width="32" height="28.444444444444443" viewBox="0 0 576 512">
             <path
@@ -82,7 +87,12 @@
       </a>
     </li>
     <li>
-      <a href="https://zulip.mora.u-szeged.hu" target="_blank" rel="noopener noreferrer" class="nav-item">
+      <a
+        href="https://zulip.mora.u-szeged.hu"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="nav-item"
+      >
         <CustomPrerender>
           <svg width="32" height="25.6" viewBox="0 0 640 512">
             <path
@@ -94,7 +104,12 @@
       </a>
     </li>
     <li>
-      <a href="https://speedtest.mora.u-szeged.hu" target="_blank" rel="noopener noreferrer" class="nav-item">
+      <a
+        href="https://speedtest.mora.u-szeged.hu"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="nav-item"
+      >
         <CustomPrerender>
           <svg width="32" height="25.6" viewBox="0 0 640 512">
             <path
@@ -106,7 +121,12 @@
       </a>
     </li>
     <li>
-      <a href="https://support.mora.u-szeged.hu" class="nav-item">
+      <a
+        href="https://support.mora.u-szeged.hu"
+        class="nav-item"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <CustomPrerender>
           <svg width="32" height="32" viewBox="0 0 512 512">
             <path
@@ -162,7 +182,7 @@
         </li>
       </Install>
     </CustomPrerender>
-    <li>
+    <!-- <li>
       <a href="/termsofuse" class="nav-item">
         <CustomPrerender>
           <svg width="32" height="32" viewBox="0 0 512 512">
@@ -173,7 +193,7 @@
         </CustomPrerender>
         <span class="label">Szabályzat</span>
       </a>
-    </li>
+    </li> -->
     <li id="nav-theme" on:click={() => setTimeout(() => (open = true), 0)}>
       <!-- svelte-ignore a11y-invalid-attribute -->
       <a

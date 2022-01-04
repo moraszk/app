@@ -75,12 +75,12 @@
       </tr>
     </tbody>
   </table>
-  {#if !browser || status['logged-in'] == 'yes'}
+  {#if status['logged-in'] == 'yes'}
     <a href="https://captiveportal.mora.u-szeged.hu/logout?redirect=app" id="logout"
       >Kijelentkezés</a
     >
   {/if}
-  {#if status['logged-in'] == 'no'}
+  {#if !browser || status['logged-in'] == 'no'}
     <a href="https://captiveportal.mora.u-szeged.hu/login?redirect=app" id="login">Bejelentkezés</a>
   {/if}
 </article>
