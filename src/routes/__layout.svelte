@@ -8,7 +8,7 @@
   import { goto } from '$app/navigation';
   $: browser &&
     window.location.pathname.endsWith('/') &&
-    goto(window.location.pathname.slice(0, -1));
+    goto(window.location.pathname.slice(0, -1) + window.location.search);
 </script>
 
 <FillAvailable />
