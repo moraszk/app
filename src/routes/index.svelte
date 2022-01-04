@@ -118,9 +118,18 @@
     flex-direction: column;
   }
 
+  table tr {
+    border-bottom: 1px solid #e6e6e6aa;
+    max-width: 420px;
+  }
+
   table td {
-    border-bottom: 1px solid #e6e6e6;
     padding: 10px 4px 10px 0;
+    &:nth-child(2) {
+      width: 100%;
+      float: right;
+      margin-left: 40px;
+    }
   }
 
   table td:first-child {
@@ -133,12 +142,11 @@
 
   #login,
   #logout {
-    width: 100%;
     border-radius: 6px;
     background: #3e4d59;
     text-align: center;
     padding: 15px;
     text-decoration: none;
-    color: var(--text-primary);
+    color: white;
   }
 </style>
