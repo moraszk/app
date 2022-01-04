@@ -57,8 +57,10 @@ async function fetchAndCache(request: Request) {
     if (
       !response.headers.get('Expires') &&
       !response.headers.get('Cache-Control')?.includes('no-store') &&
+      !response.headers.get('Cache-Control')?.includes('no-cache') &&
       !response.headers.get('Cache-Control')?.includes('max-age=0') &&
-      response.headers.get('Pragma') != 'no-cache'
+      response.headers.get('Pragma') != 'no-cache' &&
+      response.status < 400
     )
       cache.put(request, response.clone());
     return response;
