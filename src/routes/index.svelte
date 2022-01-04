@@ -20,9 +20,7 @@
 
   async function check() {
     try {
-      const response = await fetch('https://captiveportal.mora.u-szeged.hu/debuginfo.txt', {
-        cache: 'no-cache',
-      });
+      const response = await fetch('https://captiveportal.mora.u-szeged.hu/debuginfo.txt');
       status = await response.json();
     } catch (err) {
       status = {};
@@ -78,7 +76,9 @@
     </tbody>
   </table>
   {#if !browser || status['logged-in'] == 'yes'}
-    <a href="https://captiveportal.mora.u-szeged.hu/logout?redirect=app" id="logout">Kijelentkezés</a>
+    <a href="https://captiveportal.mora.u-szeged.hu/logout?redirect=app" id="logout"
+      >Kijelentkezés</a
+    >
   {/if}
   {#if status['logged-in'] == 'no'}
     <a href="https://captiveportal.mora.u-szeged.hu/login?redirect=app" id="login">Bejelentkezés</a>

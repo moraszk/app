@@ -22,8 +22,9 @@ worker.addEventListener('install', (event) => {
         const off2 = await fetch('/offline/');
         if (!off2.redirected) await cache.put('/offline/', off2);
       })
-      .then(() => {
-        worker.skipWaiting();
+      .then(async () => {
+        await worker.skipWaiting();
+        console.log('[service worker] Installed');
       })
   );
 });
@@ -38,7 +39,8 @@ worker.addEventListener('activate', (event) => {
         if (key !== FILES) await caches.delete(key);
       }
 
-      worker.clients.claim();
+      await worker.clients.claim();
+      console.log('[service worker] Activate');
     })
   );
 });
@@ -52,7 +54,13 @@ async function fetchAndCache(request: Request) {
 
   try {
     const response = await fetch(request);
-    cache.put(request, response.clone());
+    if (
+      !response.headers.get('Expires') &&
+      !response.headers.get('Cache-Control')?.includes('no-store') &&
+      !response.headers.get('Cache-Control')?.includes('max-age=0') &&
+      response.headers.get('Pragma') != 'no-cache'
+    )
+      cache.put(request, response.clone());
     return response;
   } catch (err) {
     const url = new URL(request.url);
