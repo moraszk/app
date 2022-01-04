@@ -431,10 +431,6 @@
       right: unset;
       left: 0;
       min-height: 100%;
-      &,
-      #nav-toggler:checked ~ & {
-        background-color: var(--bg-secondary);
-      }
 
       width: var(--nav-width) !important;
       --nav-open: 0 !important;
@@ -442,6 +438,7 @@
       &:focus-within {
         --nav-open: 1 !important;
         width: 16rem !important;
+        background-color: var(--bg-primary);
       }
     }
     .nav-items {
@@ -465,6 +462,7 @@
   @media screen and (min-width: $br-lg) {
     nav {
       --nav-open: 1 !important;
+      background-color: var(--bg-secondary) !important;
     }
   }
 </style>
