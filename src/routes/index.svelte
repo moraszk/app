@@ -54,6 +54,7 @@
   let int: NodeJS.Timer;
 
   onMount(() => {
+    update();
     int = setInterval(update, 15000);
     browser && window.addEventListener('online', update);
     browser && window.addEventListener('offline', onOffline);
