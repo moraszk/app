@@ -13,8 +13,8 @@
     %svelte.head%
   </head>
   <body class="preload">
-      <noscript>
-        <center id="noscript">
+      <noscript id="noscript">
+        <center>
           <br /><br />
           <h1>Nincs engedélyezve a JavaScript.</h1>
           <br />
@@ -32,7 +32,7 @@
         </center>
       </noscript>
       <script nomodule>
-        document.body.innerHTML = document.getElementById('noscript').innerHTML;
+        document.getElementById('noscript').outerHTML = document.getElementById('noscript').innerHTML;
       </script>
     <div id="svelte">
 
