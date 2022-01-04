@@ -302,7 +302,7 @@
       color: #ff7eee;
       display: flex;
       align-items: center;
-      filter: grayscale(1) opacity(0.75);
+      filter: grayscale(1) opacity(0.85);
       height: 3rem;
       width: 100%;
       &:hover {
@@ -366,6 +366,7 @@
     display: flex;
     justify-content: space-around;
     overflow-x: clip;
+    text-align: center; // prerender text
     & > a {
       height: 5rem;
       width: 5rem;
@@ -374,21 +375,25 @@
       align-items: center;
       justify-content: center;
       border-radius: 25%;
-      color: #ffd600;
       transition: filter 400ms;
+      color: var(--text-primary);
+      filter: opacity(0.4);
       & > svg {
         margin: 0;
         padding: 0 1.5rem;
       }
       &.active {
         filter: grayscale(0%);
+        color: #c5a501;
       }
       &:hover {
+        filter: grayscale(0%);
         background-color: #5858581a;
+        color: #c5a501;
       }
     }
     &:hover > *:not(:hover) {
-      filter: grayscale(100%) !important;
+      filter: grayscale(100%) opacity(0.4) !important;
     }
   }
   svg {
@@ -421,12 +426,15 @@
       width: 0;
     }
     nav {
-      box-shadow: 0px 0px 15px rgb(0 0 0 / 0.2);
+      box-shadow: none !important;
       flex-direction: column;
       right: unset;
       left: 0;
       min-height: 100%;
-      background-color: var(--bg-primary);
+      &,
+      #nav-toggler:checked ~ & {
+        background-color: var(--bg-secondary);
+      }
 
       width: var(--nav-width) !important;
       --nav-open: 0 !important;

@@ -16,11 +16,11 @@
     --text-primary: #1f1f1f;
     --text-secondary: #000000;
     --bg-primary: #ffffff;
-    --bg-secondary: #e4e4e4;
+    --bg-secondary: #f4f4f4;
   }
   @mixin dark {
     --bg-primary: #0d1117;
-    --bg-secondary: #141418;
+    --bg-secondary: #161b22;
     --text-primary: #b6b6b6;
     --text-secondary: #ececec;
   }
@@ -36,5 +36,6 @@
 
   :root[theme='dark'][amoled='amoled'] {
     --bg-primary: #000000;
+    --bg-secondary: #000000;
   }
 </style>
