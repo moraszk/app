@@ -48,17 +48,20 @@
     }
   }
 
+  const update = () => Promise.all([check(), checkBan()]);
+  const onOffline = () => (status = statusBan = {});
+
   let int: NodeJS.Timer;
-  let intBan: NodeJS.Timer;
+
   onMount(() => {
-    check();
-    checkBan();
-    int = setInterval(check, 15000);
-    intBan = setInterval(checkBan, 15000);
+    int = setInterval(update, 15000);
+    browser && window.addEventListener('online', update);
+    browser && window.addEventListener('offline', onOffline);
   });
   onDestroy(() => {
     clearInterval(int);
-    clearInterval(intBan);
+    browser && window.removeEventListener('online', update);
+    browser && window.addEventListener('offline', onOffline);
   });
 </script>
 
@@ -93,9 +96,10 @@
           {#if status.mac}
             {status.mac}
           {:else if browser && 'localStorage' in window && window.localStorage.getItem('mac')}
-            {window.localStorage.getItem('mac')}<i
+            {window.localStorage.getItem('mac')}<span
               class="cached-data"
-              title="Nem sikerült frissíteni, az memóriából lett betöltve">(utolsó ismert adat)</i
+              title="Nem sikerült frissíteni, az memóriából lett betöltve"
+              >(utolsó ismert adat)</span
             >
           {:else}
             <i> Frissítés... </i>
