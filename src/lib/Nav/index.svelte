@@ -70,7 +70,7 @@
       </a>
     </li>
     <li>
-      <a href="https://tvmaci.mora.u-szeged.hu" class="nav-item">
+      <a href="https://iptv.mora.u-szeged.hu" target="_blank" rel="noopener noreferrer" class="nav-item">
         <CustomPrerender>
           <svg width="32" height="28.444444444444443" viewBox="0 0 576 512">
             <path
@@ -82,7 +82,7 @@
       </a>
     </li>
     <li>
-      <a href="https://zulip.mora.u-szeged.hu" class="nav-item">
+      <a href="https://zulip.mora.u-szeged.hu" target="_blank" rel="noopener noreferrer" class="nav-item">
         <CustomPrerender>
           <svg width="32" height="25.6" viewBox="0 0 640 512">
             <path
@@ -94,7 +94,7 @@
       </a>
     </li>
     <li>
-      <a href="https://speedtest.net" target="_blank" rel="noopener noreferrer" class="nav-item">
+      <a href="https://speedtest.mora.u-szeged.hu" target="_blank" rel="noopener noreferrer" class="nav-item">
         <CustomPrerender>
           <svg width="32" height="25.6" viewBox="0 0 640 512">
             <path
@@ -117,7 +117,7 @@
         <span class="label">Support</span>
       </a>
     </li>
-    <li>
+    <!-- <li>
       <a href="https://drive.mora.u-szeged.hu" class="nav-item">
         <CustomPrerender>
           <svg width="32" height="28.444444444444443" viewBox="0 0 576 512"
@@ -129,7 +129,7 @@
         </CustomPrerender>
         <span class="label">Tárhely</span>
       </a>
-    </li>
+    </li> -->
     <li>
       <a href="/experimental" class="nav-item">
         <CustomPrerender>

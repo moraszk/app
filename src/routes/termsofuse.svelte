@@ -8,7 +8,6 @@
 </section>
 <article id="terms">
   <section id="kolinet">
-    <h1>Hálózati szabályzat</h1>
     <h2>A kollégiumi hálózat</h2>
     <p>Az SZTE Móra Ferenc Szakkollégium hálózatának (MóraNET) üzemeltetője maga a kollégium.</p>
     <h4>Hálózathasználati feltételek</h4>

@@ -14,18 +14,29 @@
     : '';
 
   let timer: NodeJS.Timer;
+
+  $: percent = 0;
+
   onMount(async () => {
-    timer = setTimeout(() => goto(link, { replaceState: true }), 5000);
+    const TICK_IN_MS = 10;
+    const TIMEOUT_IN_MS = 5000;
+    timer = setInterval(() => {
+      percent += TICK_IN_MS / TIMEOUT_IN_MS;
+      if (percent >= 1) {
+        goto(link, { replaceState: true });
+        percent = 1;
+      }
+    }, TICK_IN_MS);
   });
-  onDestroy(() => clearTimeout(timer));
+  onDestroy(() => clearInterval(timer));
 </script>
 
 <section id="offline">
-  <h3 id="emoji">&#128148;</h3>
+  <span id="emoji" />
   <h3>Nem sikerült kapcsolódni a hálózathoz</h3>
   <p><i>Az alkalmazás hamarosan betöltődik az eszközöd memóriájából</i></p>
   <div class="progress-bar">
-    <div class="progress" />
+    <div style={`width: ${100 * percent}%;`} class="progress" />
   </div>
   <p>A betöltendő útvonal: <a href={link}>{link}</a></p>
 </section>
@@ -44,6 +55,9 @@
   #emoji {
     margin: 0;
     font-size: 56px;
+    &::after {
+      content: '\01F494';
+    }
   }
   * {
     text-align: center;
@@ -61,18 +75,7 @@
     height: 15px;
     text-align: left;
     width: 0%;
-    animation: progress 5000ms;
-    animation-timing-function: cubic-bezier(0.39, 0.575, 0.565, 1);
+    transition: width 10ms;
     background-color: green;
-  }
-  @keyframes progress {
-    from {
-      width: 0%;
-      background-color: green;
-    }
-    to {
-      width: 100%;
-      background-color: cyan;
-    }
   }
 </style>

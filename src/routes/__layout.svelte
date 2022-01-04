@@ -1,4 +1,5 @@
 <script lang="ts">
+  import 'typeface-roboto/index.css';
   import Theme from '$lib/Theme.svelte';
   import Nav from '$lib/Nav/index.svelte';
   import Preload from '$lib/Preload.svelte';
@@ -23,12 +24,13 @@
     min-height: 100vh;
     min-height: calc(100 * var(--vh));
     min-height: -webkit-fill-available;
+    font-family: 'Roboto', sans-serif;
     --nav-width: 0rem;
   }
 
   main {
     min-height: 100vh;
-    padding: 0px 8px;
+    padding: 0px 1em;
   }
 
   @media screen and (min-width: $br-md) {
