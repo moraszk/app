@@ -22,15 +22,12 @@
 <style global lang="scss">
   body {
     --vh: 1vh;
-    color: var(--text-primary);
-    background-color: var(--bg-primary);
     margin: 0;
     padding: 0;
     min-height: 100vh;
     min-height: calc(100 * var(--vh));
     min-height: -webkit-fill-available;
     font-family: 'Roboto', sans-serif;
-    --nav-width: 0rem;
   }
 
   main {
@@ -39,13 +36,19 @@
   }
 
   @media screen and (min-width: $br-md) {
-    body {
-      --nav-width: 5rem;
+    main {
+      margin-left: 5rem;
     }
   }
   @media screen and (min-width: $br-lg) {
-    body {
-      --nav-width: 16rem;
+    main {
+      margin-right: 5rem;
+    }
+  }
+  @media screen and (min-width: $br-xl) {
+    main {
+      margin-left: 16rem;
+      margin-right: 5rem;
     }
   }
 

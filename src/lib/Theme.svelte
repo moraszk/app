@@ -1,9 +1,10 @@
 <script lang="ts">
   import { browser } from '$app/env';
   import { theme, amoled } from '$lib/storage/theme';
-  $: browser && document.documentElement.setAttribute('theme', $theme);
-  $: browser && document.documentElement.setAttribute('amoled', $amoled ? 'amoled' : 'false');
+  $: browser && document.body.classList.toggle('sl-theme-dark', $theme == 'dark');
+  $: browser && document.body.classList.toggle('black', $amoled);
   $: themeColor = $theme == 'light' ? '#ffffff' : $amoled ? '#000000' : '#0d1117';
+
 </script>
 
 <svelte:head>
@@ -12,30 +13,20 @@
 </svelte:head>
 
 <style global lang="scss">
-  :root {
-    --text-primary: #1f1f1f;
-    --text-secondary: #000000;
-    --bg-primary: #ffffff;
-    --bg-secondary: #f4f4f4;
-  }
-  @mixin dark {
-    --bg-primary: #0d1117;
-    --bg-secondary: #161b22;
-    --text-primary: #b6b6b6;
-    --text-secondary: #ececec;
-  }
-  :root[theme='dark'] {
-    @include dark();
-  }
+  @import '@shoelace-style/shoelace/dist/themes/light.css';
+  @import '@shoelace-style/shoelace/dist/themes/dark.css';
 
-  @media (prefers-color-scheme: dark) {
-    :root:not([theme]) {
-      @include dark();
+  body {
+    background-color: var(--sl-color-neutral-0);
+    color: var(--sl-color-neutral-900);
+  }
+  .sl-theme-dark {
+    --sl-color-neutral-0: #0d1117;
+    --sl-color-neutral-50: #161b22;
+    &.black {
+      --sl-color-neutral-0: #000;
+      --sl-color-neutral-50: #000;
+      --sl-color-neutral-900: #b6b6b6;
     }
-  }
-
-  :root[theme='dark'][amoled='amoled'] {
-    --bg-primary: #000000;
-    --bg-secondary: #000000;
   }
 </style>

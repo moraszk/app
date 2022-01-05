@@ -1,9 +1,9 @@
 <script context="module" lang="ts">
-  export function load(args: any) {
+  export function load(arg: any) {
     return {
       props: {
-        title: `${args.status}: ${args.error?.message || 'Unknown'}`,
-        json: JSON.stringify(args, null, 5),
+        title: `${arg.status}: ${arg.error?.message || 'Unknown'}`,
+        json: (JSON.stringify(arg, null, 2) + '').replace(/\\n/g, '\n'),
       },
     };
   }
@@ -24,7 +24,11 @@
 
 <style>
   section {
-    margin-left: 16rem;
-    margin-left: var(--nav-width);
+    /* max-width: 600px; */
+    padding-top: 5rem;
+  }
+  code {
+    overflow-x: scroll;
+    line-break: anywhere;
   }
 </style>

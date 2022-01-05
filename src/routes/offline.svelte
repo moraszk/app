@@ -18,6 +18,7 @@
   $: percent = 0;
 
   onMount(async () => {
+    import('@shoelace-style/shoelace/dist/components/progress-bar/progress-bar.js');
     const TICK_IN_MS = 10;
     const TIMEOUT_IN_MS = 5000;
     timer = setInterval(() => {
@@ -35,9 +36,8 @@
   <span id="emoji" />
   <h3>Nem sikerült kapcsolódni a hálózathoz</h3>
   <p><i>Az alkalmazás hamarosan betöltődik az eszközöd memóriájából</i></p>
-  <div class="progress-bar">
-    <div style={`width: ${100 * percent}%;`} class="progress" />
-  </div>
+  <sl-progress-bar indeterminate />
+
   <p>A betöltendő útvonal: <a href={link}>{link}</a></p>
 </section>
 
@@ -63,19 +63,9 @@
     text-align: center;
     max-width: 350px;
   }
-  .progress-bar {
-    width: 100%;
-    border: 1px solid rgb(64 64 64 / 0.3);
-    border-radius: 5px;
-    margin: 5px auto;
-    max-width: 300px;
-  }
-  .progress {
-    border-radius: 5px;
-    height: 15px;
-    text-align: left;
-    width: 0%;
-    transition: width 10ms;
-    background-color: green;
+
+  sl-progress-bar {
+    margin: 1rem 0;
+    width: 80%;
   }
 </style>

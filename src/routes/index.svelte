@@ -161,7 +161,7 @@
 
 <style lang="scss">
   article {
-    color: var(--text-primary);
+    color: var(--sl-color-neutral-900);
     min-height: 90vh;
     display: flex;
     align-items: center;
@@ -210,10 +210,9 @@
     font-weight: 700;
   }
 
-  :root[theme='dark'] table td {
+  :global(.sl-theme-dark) table td {
     border-bottom-color: #505050;
   }
-
   #login,
   #logout {
     border-radius: 6px;

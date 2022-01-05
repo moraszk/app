@@ -284,7 +284,7 @@
       --nav-open: 1;
       width: 16rem;
       height: 100%;
-      background-color: var(--bg-primary);
+      background-color: var(--sl-color-neutral-0);
     }
   }
   ul {
@@ -307,7 +307,7 @@
       width: 100%;
       &:hover {
         filter: grayscale(0) opacity(1);
-        background-color: var(--bg-secondary);
+        background-color: var(--sl-color-neutral-50);
       }
       & > * {
         padding-left: 24px;
@@ -337,7 +337,7 @@
       text-transform: uppercase;
       font-size: 1.5em;
       letter-spacing: 0.3ch;
-      color: var(--text-primary);
+      color: var(--sl-color-neutral-900);
     }
   }
   .nav-items {
@@ -359,7 +359,7 @@
     }
     .label {
       white-space: nowrap;
-      color: var(--text-primary);
+      color: var(--sl-color-neutral-900);
     }
   }
   #nav-theme {
@@ -376,7 +376,7 @@
       justify-content: center;
       border-radius: 25%;
       transition: filter 400ms;
-      color: var(--text-primary);
+      color: var(--sl-color-neutral-900);
       filter: opacity(0.4);
       & > svg {
         margin: 0;
@@ -432,13 +432,13 @@
       left: 0;
       min-height: 100%;
 
-      width: var(--nav-width) !important;
+      width: 5rem !important;
       --nav-open: 0 !important;
       &:hover,
       &:focus-within {
         --nav-open: 1 !important;
         width: 16rem !important;
-        background-color: var(--bg-primary);
+        background-color: var(--sl-color-neutral-0);
       }
     }
     .nav-items {
@@ -459,10 +459,11 @@
       }
     }
   }
-  @media screen and (min-width: $br-lg) {
+  @media screen and (min-width: $br-xl) {
     nav {
       --nav-open: 1 !important;
-      background-color: var(--bg-secondary) !important;
+      width: 16rem !important;
+      background-color: var(--sl-color-neutral-50) !important;
     }
   }
 </style>
