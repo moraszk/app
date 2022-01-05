@@ -10,7 +10,7 @@
     window.addEventListener('beforeinstallprompt', async (event) => {
       console.log('Install ready', event);
       // After two denies
-      if ($amount > 2) {
+      if ($amount >= 2) {
         console.log('Install aborted due to user preference');
       } else if (getPWADisplayMode() != 'browser') {
         console.log('PWA already installed');
