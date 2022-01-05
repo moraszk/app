@@ -13,30 +13,24 @@
     %svelte.head%
   </head>
   <body class="preload">
-      <noscript id="noscript">
-        <center>
-          <br /><br />
-          <h1>Nincs engedélyezve a JavaScript.</h1>
-          <br />
-          A böngésződ nem támogatja a javascriptet, ami lehetővé teszi a weboldal használatát.
-          <br />
-          Használd a
-          <a
-            href="https://captiveportal.mora.u-szeged.hu/status"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            régi status oldalt
-          </a>
-          vagy nyisd meg egy másik böngészőben ezt.
-        </center>
-      </noscript>
-      <script nomodule>
-        document.getElementById('noscript').outerHTML = document.getElementById('noscript').innerHTML;
-      </script>
-    <div id="svelte">
-
-      %svelte.body%
-    </div>
+    <noscript id="noscript">
+      <center>
+        <br /><br />
+        <h1>Nincs engedélyezve a JavaScript.</h1>
+        <br />
+        A böngésződ nem támogatja a javascriptet, ami lehetővé teszi a weboldal használatát.
+        <br />
+        Használd a
+        <a href="https://captiveportal.mora.u-szeged.hu" target="_blank" rel="noopener noreferrer">
+          régi status oldalt
+        </a>
+        vagy nyisd meg egy másik böngészőben ezt.
+      </center>
+    </noscript>
+    <script nomodule>
+      document.getElementById('noscript').outerHTML = document.getElementById('noscript').innerHTML;
+      setTimeout(() => document.location.replace('https://captiveportal.mora.u-szeged.hu'), 5000);
+    </script>
+    <div id="svelte">%svelte.body%</div>
   </body>
 </html>

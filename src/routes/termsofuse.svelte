@@ -192,21 +192,7 @@
     position: absolute;
     right: 1em;
   }
-  #logos {
-    position: absolute;
-    top: 0;
-    left: var(--nav-width);
-    right: 0;
-    & > img {
-      width: 96px;
-      height: auto;
-      margin: 0 1em;
-      float: right;
-      &:first-child {
-        float: left;
-      }
-    }
-  }
+
   a {
     color: #45667e;
   }
