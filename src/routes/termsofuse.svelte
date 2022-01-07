@@ -1,8 +1,5 @@
 <script>
-  import { onMount } from 'svelte';
   import sztenetpdf from '$lib/assets/sztenet.pdf';
-
-  onMount(() => import('@shoelace-style/shoelace/dist/components/alert/alert.js'));
 </script>
 
 <img class="header-icon" id="moralogo" src="/icon/icon-96x96.png" alt="Móra Ferenc Szakkollégium" />
