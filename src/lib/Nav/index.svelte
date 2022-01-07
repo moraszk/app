@@ -56,7 +56,7 @@
         <span class="label">Bejelentkezés</span>
       </a>
     </li>
-    <!-- <li>
+    <li>
       <a href="/registration" class="nav-item">
         <CustomPrerender>
           <svg width="32" height="25.6" viewBox="0 0 640 512">
@@ -68,7 +68,7 @@
 
         <span class="label">Regisztráció</span>
       </a>
-    </li> -->
+    </li>
     <li>
       <a
         href="https://iptv.mora.u-szeged.hu"
