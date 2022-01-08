@@ -3,65 +3,8 @@
 </script>
 
 <script lang="ts">
-  import { onDestroy, onMount } from 'svelte';
   import { browser } from '$app/env';
-
-  interface Status {
-    ip: string;
-    'logged-in': 'yes' | 'no';
-    mac: string;
-    username: string;
-    uptime: string;
-  }
-
-  interface StatusBan {
-    'torrent-guys': boolean;
-    'many-connections': boolean;
-    dns_no_blacklist: boolean;
-    ip: string;
-  }
-
-  $: status = {} as Partial<Status>;
-  $: statusBan = {} as Partial<StatusBan>;
-
-  async function check() {
-    try {
-      const response = await fetch('https://captiveportal.mora.u-szeged.hu/debuginfo.txt');
-      status = await response.json();
-      if (browser && status.mac && status.ip && 'localStorage' in window) {
-        window.localStorage.setItem('mac', status.mac);
-        window.localStorage.setItem('ip', status.ip);
-      }
-    } catch (err) {
-      status = {};
-    }
-  }
-
-  async function checkBan() {
-    try {
-      const response = await fetch('https://status.mora.u-szeged.hu/userban-app');
-      statusBan = await response.json();
-    } catch (err) {
-      statusBan = {};
-    }
-  }
-
-  const update = () => Promise.all([check(), checkBan()]);
-  const onOffline = () => (status = statusBan = {});
-
-  let int: NodeJS.Timer;
-
-  onMount(() => {
-    update();
-    int = setInterval(update, 15000);
-    browser && window.addEventListener('online', update);
-    browser && window.addEventListener('offline', onOffline);
-  });
-  onDestroy(() => {
-    clearInterval(int);
-    browser && window.removeEventListener('online', update);
-    browser && window.addEventListener('offline', onOffline);
-  });
+  import { status, statusBan } from '$lib/storage/captive';
 </script>
 
 <svelte:head>
@@ -69,18 +12,18 @@
 </svelte:head>
 
 <article>
-  <h1 id="welcome">Üdv{status.username ? ' ' : ''}{status.username || ''}!</h1>
+  <h1 id="welcome">Üdv{$status.username ? ' ' : ''}{$status.username || ''}!</h1>
   <table>
     <tbody>
       <tr>
         <td>Belső IP cím</td>
         <td>
-          {#if status.ip || statusBan.ip}
-            {status.ip || statusBan.ip}
+          {#if $status.ip || $statusBan.ip}
+            {$status.ip || $statusBan.ip}
           {:else if browser && 'localStorage' in window && window.localStorage.getItem('ip')}
             {window.localStorage.getItem('ip')}<span
               class="cached-data"
-              title="Nem sikerült frissíteni, az memóriából lett betöltve"
+              title="Nem sikerült frissíteni, az adat memóriából lett betöltve"
               >(utolsó ismert adat)</span
             >
           {:else}
@@ -92,12 +35,12 @@
       <tr>
         <td>Eszköz azonosító</td>
         <td>
-          {#if status.mac}
-            {status.mac}
+          {#if $status.mac}
+            {$status.mac}
           {:else if browser && 'localStorage' in window && window.localStorage.getItem('mac')}
             {window.localStorage.getItem('mac')}<span
               class="cached-data"
-              title="Nem sikerült frissíteni, az memóriából lett betöltve"
+              title="Nem sikerült frissíteni, az adat memóriából lett betöltve"
               >(utolsó ismert adat)</span
             >
           {:else}
@@ -109,25 +52,25 @@
       <tr>
         <td>Tiltások:</td>
         <td>
-          Torrentezés: {#if statusBan['torrent-guys'] === true}
+          Torrentezés: {#if $statusBan['torrent-guys'] === true}
             <span style="color: red; font-weight:bold; font-size: 200%"
               >Fekete lista!!! A feloldást a <a href="https://support.mora.u-szeged.hu"
                 >support.mora.u-szeged.hu</a
               > oldalon kérheted!</span
             >
-          {:else if statusBan['torrent-guys'] === false}
+          {:else if $statusBan['torrent-guys'] === false}
             <span id="torrent-guys" style="color: green">Tiszta vagy</span>
           {:else}
             <i>Betöltés...</i>
           {/if}
           <br />
-          Túl sok kapcsolat: {#if statusBan['many-connections'] === true}
+          Túl sok kapcsolat: {#if $statusBan['many-connections'] === true}
             <span style="color: red; font-weight:bold; font-size: 200%"
               >Fekete lista!!! A feloldást a <a href="https://support.mora.u-szeged.hu"
                 >support.mora.u-szeged.hu</a
               > oldalon kérheted!</span
             >
-          {:else if statusBan['many-connections'] === false}
+          {:else if $statusBan['many-connections'] === false}
             <span id="many-connections" style="color: green">Tiszta vagy</span>
           {:else}
             <i>Betöltés...</i>
@@ -136,7 +79,7 @@
       </tr>
       <tr>
         <td>Internethasználati idő</td>
-        <td>{status.uptime || 'frissítés...'}</td>
+        <td>{$status.uptime || 'frissítés...'}</td>
       </tr>
       <tr>
         <td>Rendszergazdák ábécében</td>
@@ -149,12 +92,12 @@
       </tr>
     </tbody>
   </table>
-  {#if status['logged-in'] == 'yes'}
+  {#if $status['logged-in'] == 'yes'}
     <a href="https://captiveportal.mora.u-szeged.hu/logout?redirect=app" id="logout"
       >Kijelentkezés</a
     >
   {/if}
-  {#if !browser || status['logged-in'] != 'yes'}
+  {#if !browser || $status['logged-in'] != 'yes'}
     <a href="https://captiveportal.mora.u-szeged.hu/login?redirect=app" id="login">Bejelentkezés</a>
   {/if}
 </article>

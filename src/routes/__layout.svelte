@@ -6,11 +6,13 @@
   import Preload from '$lib/Preload.svelte';
   import FillAvailable from '$lib/FillAvailable.svelte';
   import { goto } from '$app/navigation';
+  import StatusUpdate from '$lib/StatusUpdate.svelte';
   $: browser &&
     window.location.pathname.endsWith('/') &&
     goto(window.location.pathname.slice(0, -1) + window.location.search);
 </script>
 
+<StatusUpdate />
 <FillAvailable />
 <Preload />
 <Theme />
@@ -20,11 +22,17 @@
 </main>
 
 <style global lang="scss">
-  body {
+  .material-icons.external-link {
+    font-size: 0.75em;
+    opacity: 0.75;
+  }
+  body:not(.black) sl-input[filled] {
     caret-color: var(--sl-input-color) !important;
     --sl-input-background-color-hover: var(
       --sl-input-filled-background-color
     ) !important; // https://github.com/shoelace-style/shoelace/pull/644/commits/85b5d6db1a9b9804a9e924acc71a5319b555b1ba
+  }
+  body {
     --vh: 1vh;
     margin: 0;
     padding: 0;

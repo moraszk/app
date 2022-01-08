@@ -1,8 +1,8 @@
 <!-- The service worker responds with this file, when offline -->
 <script lang="ts">
   import { browser } from '$app/env';
-
   import { goto } from '$app/navigation';
+  import { status } from '$lib/storage/captive';
   import { onMount, onDestroy } from 'svelte';
   let link = browser
     ? (() => {
@@ -15,21 +15,17 @@
 
   let timer: NodeJS.Timer;
 
-  $: percent = 0;
+  const onLoaded = () => goto(link, { replaceState: true });
+  const isEmpty = (o: Object) => Object.keys(o).length == 0;
 
-  onMount(async () => {
+  onMount(() => {
     import('@shoelace-style/shoelace/dist/components/progress-bar/progress-bar.js');
-    const TICK_IN_MS = 10;
-    const TIMEOUT_IN_MS = 5000;
-    timer = setInterval(() => {
-      percent += TICK_IN_MS / TIMEOUT_IN_MS;
-      if (percent >= 1) {
-        goto(link, { replaceState: true });
-        percent = 1;
-      }
-    }, TICK_IN_MS);
+    status.subscribe((x) => {
+      if (!isEmpty(x)) onLoaded();
+    });
+    timer = setTimeout(onLoaded, 5000);
   });
-  onDestroy(() => clearInterval(timer));
+  onDestroy(() => clearTimeout(timer));
 </script>
 
 <section id="offline">

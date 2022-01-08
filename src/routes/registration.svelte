@@ -1,10 +1,8 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import '@fontsource/material-icons'; // Defaults to weight 400.
-
-  import resolveNotBefore from '$lib/util/resolveNotBefore';
-
-  $: error = null as string | null;
+  import { amoled } from '$lib/storage/theme';
+  $: error = '';
 
   async function onSubmit(e: CustomEvent) {
     const { formData } = e.detail;
@@ -21,39 +19,25 @@
 
   $: loading = true;
   $: connected = false;
+
   onMount(async () => {
     import('@shoelace-style/shoelace/dist/components/spinner/spinner');
-    await resolveNotBefore(
-      () =>
-        Promise.all([
-          import('@shoelace-style/shoelace/dist/components/alert/alert.js'),
-          import('@shoelace-style/shoelace/dist/components/form/form.js'),
-          import('@shoelace-style/shoelace/dist/components/input/input.js'),
-          import('@shoelace-style/shoelace/dist/components/select/select.js'),
-          import('@shoelace-style/shoelace/dist/components/menu-item/menu-item.js'),
-          import('@shoelace-style/shoelace/dist/components/menu-label/menu-label.js'),
-          import('@shoelace-style/shoelace/dist/components/divider/divider.js'),
-          import('@shoelace-style/shoelace/dist/components/checkbox/checkbox.js'),
-          import('@shoelace-style/shoelace/dist/components/button/button.js'),
-          import('@shoelace-style/shoelace/dist/components/icon/icon.js'),
-        ]),
-      1000
-    );
-    // let it = setInterval(async () => {
-    //   try {
-    //     const info = await fetch('https://valami.mora.u-szeged.hu/info').then((x) => x.json());
-    //     if (info.status === 'open') {
-    //       connected = true;
-    //     } else {
-    //       console.log('A regisztráció lezárult');
-    //     }
-    //     clearInterval(it);
-    //   } catch (err) {
-    //     console.error(err);
-    //   }
-    // }, 5000);
-    setTimeout(() => (loading = false), 100);
-    setTimeout(() => (connected = true), 2000);
+
+    await Promise.all([
+      import('@shoelace-style/shoelace/dist/components/alert/alert.js'),
+      import('@shoelace-style/shoelace/dist/components/form/form.js'),
+      import('@shoelace-style/shoelace/dist/components/input/input.js'),
+      import('@shoelace-style/shoelace/dist/components/select/select.js'),
+      import('@shoelace-style/shoelace/dist/components/menu-item/menu-item.js'),
+      import('@shoelace-style/shoelace/dist/components/menu-label/menu-label.js'),
+      import('@shoelace-style/shoelace/dist/components/divider/divider.js'),
+      import('@shoelace-style/shoelace/dist/components/checkbox/checkbox.js'),
+      import('@shoelace-style/shoelace/dist/components/button/button.js'),
+      import('@shoelace-style/shoelace/dist/components/icon/icon.js'),
+    ]);
+
+    loading = false;
+    setTimeout(() => (connected = true), 1000);
   });
 </script>
 
@@ -65,6 +49,10 @@
       Ahhoz, hogy használni tudd a kollégiumi hálózatot a következő félévben is, frissítened kell az
       adataidat.
     </p>
+
+    {#if error != ''}
+      <p>{error}</p>
+    {/if}
   </header>
 
   {#if loading}
@@ -73,7 +61,7 @@
   {:else}
     <sl-form class="form-overview" on:sl-submit={onSubmit}>
       <sl-input
-        filled
+        filled={!$amoled}
         required
         name="username"
         variant="text"
@@ -85,7 +73,7 @@
       </sl-input>
 
       <sl-input
-        filled
+        filled={!$amoled}
         required
         spellcheck="false"
         name="password"
@@ -99,7 +87,7 @@
       </sl-input>
 
       <sl-input
-        filled
+        filled={!$amoled}
         required
         name="firstname"
         variant="text"
@@ -112,7 +100,7 @@
       </sl-input>
 
       <sl-input
-        filled
+        filled={!$amoled}
         required
         name="surname"
         variant="text"
@@ -124,7 +112,7 @@
         <span class="material-icons" slot="prefix"> people </span>
       </sl-input>
 
-      <sl-select filled required name="room" label="szobaszám" clearable>
+      <sl-select filled={!$amoled} required name="room" label="szobaszám" clearable>
         <span class="material-icons" slot="prefix"> place </span>
         <sl-menu-label>Legjobb emelet</sl-menu-label>
         <sl-menu-item value="roomid_66.in">1/1</sl-menu-item>
@@ -207,7 +195,7 @@
       </sl-select>
 
       <sl-input
-        filled
+        filled={!$amoled}
         name="email"
         variant="text"
         label="email"
@@ -222,13 +210,13 @@
         <p>
           Írd be ezt a szöveget, pontok nélkül:<br />
 
-          <span class="a" style="width: 15px;">macska ami</span>
-          <span class="a" style="width: 11px;">olykor</span>
-          <span class="a" style="width: 7px;">radiohullámok nélkül</span>
-          <span class="a" style="width: 9px;">akadályozza meg a gonosz kínai botokat</span>
+          <span class="a" style="width: 17px;">macska ami</span>
+          <span class="a" style="width: 13px;">olykor</span>
+          <span class="a" style="width: 9px;">radiohullámok nélkül</span>
+          <span class="a" style="width: 12px;">akadályozza meg a gonosz kínai botokat</span>
         </p>
         <sl-input
-          filled
+          filled={!$amoled}
           name="szakkoli"
           variant="text"
           placeholder="A kollégium négy betűs rövidítése"
@@ -244,8 +232,8 @@
       <footer>
         <sl-checkbox name="agree" value="yes" required>
           Elolvastam és elfogadom a hálózat használati <a target="_blank" href="/termsofuse"
-            >szabályzatot</a
-          >
+            >szabályzatot <span class="external-link material-icons">launch</span>
+          </a>
         </sl-checkbox>
 
         <sl-button variant="primary" class="submit" loading={!connected} submit>Submit</sl-button>
