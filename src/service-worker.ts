@@ -51,6 +51,10 @@ worker.addEventListener('activate', (event) => {
  */
 async function fetchAndCache(request: Request) {
   const cache = await caches.open(`offline${timestamp}`);
+  const url = new URL(request.url);
+
+  if (url.host == worker.location.host && request.mode == 'navigate')
+    return fetchPage(request, url);
 
   try {
     const response = await fetch(request);
@@ -65,18 +69,24 @@ async function fetchAndCache(request: Request) {
       cache.put(request, response.clone());
     return response;
   } catch (err) {
-    const url = new URL(request.url);
-    if (url.host == worker.location.host && request.mode == 'navigate') {
-      const c = await caches.open(FILES);
-      if (await c.match('/offline'))
-        return Response.redirect('/offline?redirect=' + new URL(request.url).pathname);
-      else if (await c.match('/offline/'))
-        return Response.redirect('/offline/?redirect=' + new URL(request.url).pathname);
-    } else {
-      const response = await cache.match(request);
-      if (response) return response;
-    }
+    const response = await cache.match(request);
+    if (response) return response;
+    throw err;
+  }
+}
 
+/** Fetch without caching and with smaller timeout */
+async function fetchPage(request: Request, url: URL) {
+  try {
+    return (await Promise.race([
+      fetch(request),
+      new Promise((_, rej) => setTimeout(rej, 5000, 'Timeout')),
+    ])) as Promise<Response>;
+  } catch (err) {
+    const c = await caches.open(FILES);
+    if (await c.match('/offline')) return Response.redirect('/offline?redirect=' + url.pathname);
+    else if (await c.match('/offline/'))
+      return Response.redirect('/offline/?redirect=' + url.pathname);
     throw err;
   }
 }
