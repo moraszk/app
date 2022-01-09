@@ -182,7 +182,7 @@
         </li>
       </Install>
     </CustomPrerender>
-    <!-- <li>
+    <li>
       <a href="/termsofuse" class="nav-item">
         <CustomPrerender>
           <svg width="32" height="32" viewBox="0 0 512 512">
@@ -193,7 +193,7 @@
         </CustomPrerender>
         <span class="label">Szabályzat</span>
       </a>
-    </li> -->
+    </li>
     <li id="nav-theme" on:click={() => setTimeout(() => (open = true), 0)}>
       <!-- svelte-ignore a11y-invalid-attribute -->
       <a

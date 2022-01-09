@@ -85,7 +85,6 @@
 
     <sl-alert
       bind:this={alert}
-      on:load={() => alert.toast()}
       variant={error.success ? 'success' : 'danger'}
       duration="10000"
       closable
