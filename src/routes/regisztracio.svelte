@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import '@fontsource/material-icons'; // Defaults to weight 400.
+  // import '@fontsource/material-icons'; // Defaults to weight 400.
   import { amoled } from '$lib/storage/theme';
   import { status } from '$lib/storage/captive';
   import { browser } from '$app/env';
@@ -287,7 +287,7 @@
 
       <footer>
         <sl-checkbox name="agree" value="yes" required>
-          Elolvastam és elfogadom a hálózat használati <a target="_blank" href="/termsofuse"
+          Elolvastam és elfogadom a hálózat használati <a target="_blank" href="/szabalyzat"
             >szabályzatot <span class="external-link material-icons">launch</span>
           </a>
         </sl-checkbox>
