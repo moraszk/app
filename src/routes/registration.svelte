@@ -2,19 +2,51 @@
   import { onMount } from 'svelte';
   import '@fontsource/material-icons'; // Defaults to weight 400.
   import { amoled } from '$lib/storage/theme';
-  $: error = '';
+  import { status } from '$lib/storage/captive';
+  import { browser } from '$app/env';
+  $: error = { success: false, message: '' };
+  let alert: any;
+
+  let initUsername = $status.username;
+
+  $: username = initUsername || null;
+
+  // set username from captiveportal on load
+  status.subscribe((x) => {
+    if (x.username && username === null) {
+      username = x.username;
+    }
+  });
 
   async function onSubmit(e: CustomEvent) {
     const { formData } = e.detail;
-    try {
-      const result = await fetch('https://valami.mora.u-szeged.hu/register', {
-        method: 'POST',
-        body: formData,
-      }).then((x) => x.json());
-      console.log(result);
-    } catch (err) {
-      error = JSON.stringify(err);
-    }
+    const json = {} as any;
+    formData.forEach((value: any, key: string | number) => (json[key as any] = value));
+
+    const result = await fetch('https://acc.mora.u-szeged.hu/register', {
+      method: 'POST',
+      body: JSON.stringify(json),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(async (res) => {
+        if (!res.ok) {
+          error = { success: false, message: 'Sikertelen regisztráció' };
+
+          error = { ...error, message: (await res.json()).message };
+
+          console.log(error);
+        } else {
+          error = { success: true, message: 'Sikeres regisztráció' };
+
+          error = { ...error, message: (await res.json()).message || 'Sikeres regisztráció' };
+
+          console.log(error);
+        }
+      })
+      .finally(() => alert && alert.toast());
+    console.log(result);
   }
 
   $: loading = true;
@@ -34,6 +66,7 @@
       import('@shoelace-style/shoelace/dist/components/checkbox/checkbox.js'),
       import('@shoelace-style/shoelace/dist/components/button/button.js'),
       import('@shoelace-style/shoelace/dist/components/icon/icon.js'),
+      import('@shoelace-style/shoelace/dist/components/alert/alert.js'),
     ]);
 
     loading = false;
@@ -50,9 +83,15 @@
       adataidat.
     </p>
 
-    {#if error != ''}
-      <p>{error}</p>
-    {/if}
+    <sl-alert
+      bind:this={alert}
+      on:load={() => alert.toast()}
+      variant={error.success ? 'success' : 'danger'}
+      duration="10000"
+      closable
+    >
+      <strong>{error.message}</strong>
+    </sl-alert>
   </header>
 
   {#if loading}
@@ -61,6 +100,7 @@
   {:else}
     <sl-form class="form-overview" on:sl-submit={onSubmit}>
       <sl-input
+        value={username || ''}
         filled={!$amoled}
         required
         name="username"
@@ -106,7 +146,7 @@
         variant="text"
         autocomplete="on"
         label="keresztnév"
-        placeholder="Jakab Ádám"
+        placeholder="Jakab"
         clearable
       >
         <span class="material-icons" slot="prefix"> people </span>
@@ -206,28 +246,31 @@
         <span class="material-icons" slot="prefix"> email </span>
       </sl-input>
 
-      <div>
-        <p>
-          Írd be ezt a szöveget, pontok nélkül:<br />
+      {#if !(browser && new URL(window.location.href).searchParams.get('captha'))}
+        <div>
+          <p>
+            Írd be ezt a szöveget, pontok nélkül:<br />
 
-          <span class="a" style="width: 17px;">macska ami</span>
-          <span class="a" style="width: 13px;">olykor</span>
-          <span class="a" style="width: 9px;">radiohullámok nélkül</span>
-          <span class="a" style="width: 12px;">akadályozza meg a gonosz kínai botokat</span>
-        </p>
-        <sl-input
-          filled={!$amoled}
-          name="szakkoli"
-          variant="text"
-          placeholder="A kollégium négy betűs rövidítése"
-          pattern="(A|r|o|R|m|O|a|6|á|M)+"
-          minlength="4"
-          maxlength="4"
-          clearable
-        >
-          <span class="material-icons" slot="prefix"> pan_tool </span>
-        </sl-input>
-      </div>
+            <span class="a" style="width: 17px;">macska ami</span>
+            <span class="a" style="width: 13px;">olykor</span>
+            <span class="a" style="width: 9px;">radiohullámok nélkül</span>
+            <span class="a" style="width: 12px;">akadályozza meg a gonosz kínai botokat</span>
+          </p>
+          <sl-input
+            filled={!$amoled}
+            value={browser && new URL(window.location.href).searchParams.get('captha')}
+            name="szakkoli"
+            variant="text"
+            placeholder="Írd be a fenti szöveget pontok nélkül"
+            pattern="(A|r|o|R|m|O|a|6|á|M)+"
+            minlength="4"
+            maxlength="4"
+            clearable
+          >
+            <span class="material-icons" slot="prefix"> pan_tool </span>
+          </sl-input>
+        </div>
+      {/if}
 
       <footer>
         <sl-checkbox name="agree" value="yes" required>
