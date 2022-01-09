@@ -46,6 +46,10 @@
           console.log(error);
         }
       })
+      .catch((err) => {
+        console.error(err);
+        error = { success: false, message: 'Nem sikerült csatlakozni a szerverhez' };
+      })
       .finally(() => alert && alert.toast());
     console.log(result);
   }
