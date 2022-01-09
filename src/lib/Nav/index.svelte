@@ -57,7 +57,7 @@
       </a>
     </li>
     <li>
-      <a href="/registration" class="nav-item">
+      <a href="/regisztracio" class="nav-item">
         <CustomPrerender>
           <svg width="32" height="25.6" viewBox="0 0 640 512">
             <path
@@ -183,7 +183,7 @@
       </Install>
     </CustomPrerender>
     <li>
-      <a href="/termsofuse" class="nav-item">
+      <a href="/szabalyzat" class="nav-item">
         <CustomPrerender>
           <svg width="32" height="32" viewBox="0 0 512 512">
             <path

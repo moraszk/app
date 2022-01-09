@@ -4,6 +4,7 @@
   import { amoled } from '$lib/storage/theme';
   import { status } from '$lib/storage/captive';
   import { browser } from '$app/env';
+  import resolveNotBefore from '$lib/util/resolveNotBefore';
   $: error = { success: false, message: '' };
   let alert: any;
 
@@ -70,7 +71,16 @@
     ]);
 
     loading = false;
-    setTimeout(() => (connected = true), 1000);
+
+    try {
+      await resolveNotBefore(() => fetch('https://acc.mora.u-szeged.hu/'), 1000);
+      connected = true;
+    } catch (err) {
+      setInterval(
+        () => !connected && fetch('https://acc.mora.u-szeged.hu/').then(() => (connected = true)),
+        5000
+      );
+    }
   });
 </script>
 
@@ -245,31 +255,33 @@
         <span class="material-icons" slot="prefix"> email </span>
       </sl-input>
 
-      {#if !(browser && new URL(window.location.href).searchParams.get('captha'))}
-        <div>
-          <p>
-            Írd be ezt a szöveget, pontok nélkül:<br />
+      <div
+        style={browser && new URL(window.location.href).searchParams.get('captha')
+          ? 'display: none;'
+          : ''}
+      >
+        <p>
+          Írd be ezt a szöveget, pontok nélkül:<br />
 
-            <span class="a" style="width: 17px;">macska ami</span>
-            <span class="a" style="width: 13px;">olykor</span>
-            <span class="a" style="width: 9px;">radiohullámok nélkül</span>
-            <span class="a" style="width: 12px;">akadályozza meg a gonosz kínai botokat</span>
-          </p>
-          <sl-input
-            filled={!$amoled}
-            value={browser && new URL(window.location.href).searchParams.get('captha')}
-            name="szakkoli"
-            variant="text"
-            placeholder="Írd be a fenti szöveget pontok nélkül"
-            pattern="(A|r|o|R|m|O|a|6|á|M)+"
-            minlength="4"
-            maxlength="4"
-            clearable
-          >
-            <span class="material-icons" slot="prefix"> pan_tool </span>
-          </sl-input>
-        </div>
-      {/if}
+          <span class="a" style="width: 17px;">macska ami</span>
+          <span class="a" style="width: 13px;">olykor</span>
+          <span class="a" style="width: 9px;">radiohullámok nélkül</span>
+          <span class="a" style="width: 12px;">akadályozza meg a gonosz kínai botokat</span>
+        </p>
+        <sl-input
+          filled={!$amoled}
+          value={browser && new URL(window.location.href).searchParams.get('captha')}
+          name="szakkoli"
+          variant="text"
+          placeholder="Írd be a fenti szöveget pontok nélkül"
+          pattern="(A|r|o|R|m|O|a|6|á|M)+"
+          minlength="4"
+          maxlength="4"
+          clearable
+        >
+          <span class="material-icons" slot="prefix"> pan_tool </span>
+        </sl-input>
+      </div>
 
       <footer>
         <sl-checkbox name="agree" value="yes" required>
