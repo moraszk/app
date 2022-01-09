@@ -257,7 +257,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 99;
+    z-index: 999;
   }
   // Enable nav overlay above content
   #nav-toggler:checked ~ .nav-overlay {
@@ -267,7 +267,7 @@
     position: fixed;
     bottom: 0;
     right: 0;
-    z-index: 100;
+    z-index: 1000;
 
     display: flex;
     flex-direction: column-reverse; // mobile
