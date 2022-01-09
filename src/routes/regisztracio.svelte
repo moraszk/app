@@ -255,33 +255,35 @@
         <span class="material-icons" slot="prefix"> email </span>
       </sl-input>
 
-      <div
-        style={browser && new URL(window.location.href).searchParams.get('captha')
-          ? 'display: none;'
-          : ''}
-      >
-        <p>
-          Írd be ezt a szöveget, pontok nélkül:<br />
-
-          <span class="a" style="width: 17px;">macska ami</span>
-          <span class="a" style="width: 13px;">olykor</span>
-          <span class="a" style="width: 9px;">radiohullámok nélkül</span>
-          <span class="a" style="width: 12px;">akadályozza meg a gonosz kínai botokat</span>
-        </p>
-        <sl-input
-          filled={!$amoled}
-          value={browser && new URL(window.location.href).searchParams.get('captha')}
-          name="szakkoli"
-          variant="text"
-          placeholder="Írd be a fenti szöveget pontok nélkül"
-          pattern="(A|r|o|R|m|O|a|6|á|M)+"
-          minlength="4"
-          maxlength="4"
-          clearable
+      {#if !$status.username}
+        <div
+          style={browser && new URL(window.location.href).searchParams.get('captha')
+            ? 'display: none;'
+            : ''}
         >
-          <span class="material-icons" slot="prefix"> pan_tool </span>
-        </sl-input>
-      </div>
+          <p>
+            Írd be ezt a szöveget, pontok nélkül:<br />
+
+            <span class="a" style="width: 14px;">m.b.a.t</span>
+            <span class="a" style="width: 10px;">o.l.k.o</span>
+            <span class="a" style="width: 6px;">r.adiohullámok nélkül</span>
+            <span class="a" style="width: 9px;">akadályozza meg a gonosz kínai botokat</span>
+          </p>
+          <sl-input
+            filled={!$amoled}
+            value={browser && new URL(window.location.href).searchParams.get('captha')}
+            name="szakkoli"
+            variant="text"
+            placeholder="Írd be a fenti szöveget pontok nélkül"
+            pattern="(A|r|o|R|m|O|a|6|á|M)+"
+            minlength="4"
+            maxlength="4"
+            clearable
+          >
+            <span class="material-icons" slot="prefix"> pan_tool </span>
+          </sl-input>
+        </div>
+      {/if}
 
       <footer>
         <sl-checkbox name="agree" value="yes" required>
@@ -341,6 +343,7 @@
     font-size: 16px;
     width: 14px;
     overflow: hidden;
+    text-overflow: clip;
     text-overflow: ellipsis;
   }
 </style>
