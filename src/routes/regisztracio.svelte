@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onDestroy, onMount } from 'svelte';
+  import FunnyNames from '$lib/util/funnyNames';
   // import '@fontsource/material-icons'; // Defaults to weight 400.
   import { amoled } from '$lib/storage/theme';
   import { status } from '$lib/storage/captive';
@@ -57,8 +58,14 @@
   $: loading = true;
   $: connected = false;
 
+  const names = new FunnyNames();
+  $: name = names.next();
+
+  let it: NodeJS.Timer;
+
   onMount(async () => {
-    import('@shoelace-style/shoelace/dist/components/spinner/spinner');
+    it = setInterval(() => (name = names.next()), 3000);
+    import('@shoelace-style/shoelace/dist/components/spinner/spinner.js');
 
     await Promise.all([
       import('@shoelace-style/shoelace/dist/components/alert/alert.js'),
@@ -72,11 +79,10 @@
       import('@shoelace-style/shoelace/dist/components/button/button.js'),
       import('@shoelace-style/shoelace/dist/components/icon/icon.js'),
       import('@shoelace-style/shoelace/dist/components/alert/alert.js'),
-    ]);
-
-    loading = false;
+    ]).then(() => (loading = false));
 
     try {
+      // Set connected to true when acc.mora is reachable
       await resolveNotBefore(() => fetch('https://acc.mora.u-szeged.hu/'), 1000);
       connected = true;
     } catch (err) {
@@ -86,6 +92,7 @@
       );
     }
   });
+  onDestroy(() => clearInterval(it));
 </script>
 
 <section id="registration">
@@ -146,7 +153,7 @@
         variant="text"
         autocomplete="on"
         label="vezetéknév"
-        placeholder="Gipsz"
+        placeholder={browser ? name[0] : 'Gipsz'}
         clearable
       >
         <span class="material-icons" slot="prefix"> people </span>
@@ -159,7 +166,7 @@
         variant="text"
         autocomplete="on"
         label="keresztnév"
-        placeholder="Jakab"
+        placeholder={browser ? name[1] : 'Jakab'}
         clearable
       >
         <span class="material-icons" slot="prefix"> people </span>
