@@ -1,6 +1,5 @@
 <script lang="ts">
   import { onDestroy, onMount } from 'svelte';
-  import FunnyNames from '$lib/util/funnyNames';
   // import '@fontsource/material-icons'; // Defaults to weight 400.
   import { amoled } from '$lib/storage/theme';
   import { status } from '$lib/storage/captive';
@@ -58,13 +57,7 @@
   $: loading = true;
   $: connected = false;
 
-  const names = new FunnyNames();
-  $: name = names.next();
-
-  let it: NodeJS.Timer;
-
   onMount(async () => {
-    it = setInterval(() => (name = names.next()), 3000);
     import('@shoelace-style/shoelace/dist/components/spinner/spinner.js');
 
     await Promise.all([
@@ -92,7 +85,6 @@
       );
     }
   });
-  onDestroy(() => clearInterval(it));
 </script>
 
 <section id="registration">
@@ -153,7 +145,7 @@
         variant="text"
         autocomplete="on"
         label="vezetéknév"
-        placeholder={browser ? name[0] : 'Gipsz'}
+        placeholder="Gipsz"
         clearable
       >
         <span class="material-icons" slot="prefix"> people </span>
@@ -166,7 +158,7 @@
         variant="text"
         autocomplete="on"
         label="keresztnév"
-        placeholder={browser ? name[1] : 'Jakab'}
+        placeholder="Jakab"
         clearable
       >
         <span class="material-icons" slot="prefix"> people </span>
