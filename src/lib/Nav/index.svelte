@@ -101,7 +101,7 @@
             />
           </svg>
         </CustomPrerender>
-        <span class="label">TV maci</span>
+        <span class="label">Maci</span>
       </a>
     </li>
     <li class:disabled={!$status.username}>
