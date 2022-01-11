@@ -25,6 +25,7 @@
         -n. Az eszköz <b>automatikusan inaktív állapotba kerül</b>, ha a felhasználó kijelentkezik
         rajta, vagy, ha egy napja nem csatlakozott fel a kollégiumi hálózatra.
       </p>
+      <p>Tilos aktív hálózati eszközt csatlakoztatni a hálózathoz, végpontot leszámítva</p>
       <p>
         A felhasználó feladata gondoskodni arról, hogy a felhasználójához kapcsolt eszközök
         megfeleljenek a jelen szabályzatnak.
@@ -32,11 +33,12 @@
       <h4>Elérhető szolgáltatások</h4>
       <p>
         Fent tartjuk a jogot, hogy a tanuláshoz nem szükséges szolgáltatásokat, például az
-        internetes hírdetéseket tiltsuk vagy korlátozzuk az adatforgalom csökkentése érdekében.
+        internetes hírdetéseket és követőket tiltsuk vagy korlátozzuk az adatforgalom csökkentése
+        érdekében.
       </p>
       <p class="quote">
         Amennyiben egy weboldal vagy alkalmazás nem működik a kollégiumi hálózaton, a <a
-          target="_black"
+          target="_blank"
           rel="noopener noreferer"
           href="https://support.mora.u-szeged.hu">https://support.mora.u-szeged.hu</a
         > oldalon kérheted a kivétel hozzáadását.
@@ -58,11 +60,17 @@
       <ul>
         <li>
           Nem tároljuk a forgalom tartalmát (ez a legtöbb esetben amúgy is titkosított forgalom),
-          csupán annak mennyiségét, forrását, és irányát; illetve ezeket felhasználóhoz kötjük.
+          csupán annak mennyiségét, forrását, irányát és típusát; illetve ezeket felhasználóhoz
+          kötjük.
         </li>
         <li>Kapcsolódás és bejelentkezés a hálózatra, kiosztott hálózati cím.</li>
         <li>Felhasznált adatforgalom.</li>
-        <li>Automatikusan kiosztott tiltás esetén annak okát dokumentáló adatok.</li>
+        <li>
+          Személyhez köthető tároljuk az automatikusan kiosztott tiltások okát dokumentáló okokat,
+          beleértve a tevékenység időpontját és az aktív hálózati kapcsolatok adatait, azok tartalma
+          nélkül.
+        </li>
+        <li>Nem személyhez köthetően tároljuk a használt szolgáltatások neveit.</li>
         <li>Emailezés esetén a kliens és a szerver címe (pl. gmail.com)</li>
         <li>A kollégiumi hálózat továbbosztása.</li>
         <li>
@@ -120,7 +128,7 @@
       <h4>Belső hálózat felderítése</h4>
       <p>
         Ha egy eszköz 75 különböző kapcsolatot nyit meg egyszerre a kollégium hálózatának többi
-        felhasználója felé, akkor a rendszer az adott eszközt hatvan percre letiltja a többi
+        felhasználója felé, akkor a rendszer az adott eszközt tíz percre letiltja a többi
         felhasználó elérésétől. Ilyenkor a kollégiumi szerverek és az internet felé továbbra is
         szabadon forgalmazhat.
       </p>
