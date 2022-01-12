@@ -66,9 +66,9 @@
         <li>Kapcsolódás és bejelentkezés a hálózatra, kiosztott hálózati cím.</li>
         <li>Felhasznált adatforgalom.</li>
         <li>
-          Személyhez köthető tároljuk az automatikusan kiosztott tiltások okát dokumentáló okokat,
-          beleértve a tevékenység időpontját és az aktív hálózati kapcsolatok adatait, azok tartalma
-          nélkül.
+          Személyhez köthető módon tároljuk az automatikusan kiosztott tiltások okát dokumentáló
+          okokat, beleértve a tevékenység időpontját és az aktív hálózati kapcsolatok adatait, azok
+          tartalma nélkül.
         </li>
         <li>Nem személyhez köthetően tároljuk a használt szolgáltatások neveit.</li>
         <li>Emailezés esetén a kliens és a szerver címe (pl. gmail.com)</li>
