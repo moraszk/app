@@ -258,6 +258,7 @@
     width: 100%;
     height: 100%;
     z-index: 999;
+    background-color: rgb(0 0 0 / 0.25);
   }
   // Enable nav overlay above content
   #nav-toggler:checked ~ .nav-overlay {
@@ -273,7 +274,7 @@
     flex-direction: column-reverse; // mobile
 
     max-width: 75%;
-      transition: width 400ms 150ms ease, box-shadow 400ms 150ms;
+    transition: width 400ms 150ms ease, box-shadow 400ms 150ms;
     box-shadow: 0px 0 10px 0 rgb(0 0 0 / 0);
     --nav-open: 0;
     width: 5rem;
