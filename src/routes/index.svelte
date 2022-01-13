@@ -4,7 +4,28 @@
 
 <script lang="ts">
   import { browser } from '$app/env';
+  import CustomPrerender from '$lib/CustomPrerender.svelte';
   import { status, statusBan } from '$lib/storage/captive';
+  import { onMount } from 'svelte';
+
+  $: loaded = false;
+
+  onMount(() => {
+    Promise.all([
+      import('@shoelace-style/shoelace/dist/components/button/button.js'),
+      import('@shoelace-style/shoelace/dist/components/tooltip/tooltip.js'),
+    ]).then(() => (loaded = true));
+  });
+
+  $: state = {
+    ip: $status.ip || (browser && window.localStorage?.getItem('ip')) || '',
+    mac: $status.mac || (browser && window.localStorage?.getItem('mac')) || '',
+    username: $status.username || '',
+  };
+
+  const copy = (text?: string) => {
+    'clipboard' in navigator && navigator.clipboard.writeText(text || JSON.stringify(state));
+  };
 </script>
 
 <svelte:head>
@@ -18,34 +39,60 @@
       <tr>
         <td>Belső IP cím</td>
         <td>
-          {#if $status.ip || $statusBan.ip}
-            {$status.ip || $statusBan.ip}
-          {:else if browser && 'localStorage' in window && window.localStorage.getItem('ip')}
-            {window.localStorage.getItem('ip')}<span
-              class="cached-data"
-              title="Nem sikerült frissíteni, az adat memóriából lett betöltve"
-              >(utolsó ismert adat)</span
-            >
-          {:else}
-            <span> Frissítés... </span>
-          {/if}
+          <sl-tooltip>
+            <div slot="content">
+              {#if loaded}
+                másolás
+              {/if}
+            </div>
+            {#if state.ip}
+              {state.ip}
+              <CustomPrerender>
+                <span class="material-icons copy-icon" on:click={() => copy(state.ip || '')}
+                  >file_copy</span
+                >
+              </CustomPrerender>
+              {#if !$status.ip && !$statusBan.ip}
+                <span
+                  class="cached-data"
+                  title="Nem sikerült frissíteni, az adat memóriából lett betöltve"
+                  >(utolsó ismert adat)</span
+                >
+              {/if}
+            {:else}
+              <span> Frissítés... </span>
+            {/if}
+          </sl-tooltip>
         </td>
       </tr>
 
       <tr>
         <td>Eszköz azonosító</td>
         <td>
-          {#if $status.mac}
-            {$status.mac}
-          {:else if browser && 'localStorage' in window && window.localStorage.getItem('mac')}
-            {window.localStorage.getItem('mac')}<span
-              class="cached-data"
-              title="Nem sikerült frissíteni, az adat memóriából lett betöltve"
-              >(utolsó ismert adat)</span
-            >
-          {:else}
-            <i> Frissítés... </i>
-          {/if}
+          <sl-tooltip>
+            <div slot="content">
+              {#if loaded}
+                másolás
+              {/if}
+            </div>
+            {#if state.mac}
+              {state.mac}
+              <CustomPrerender>
+                <span class="material-icons copy-icon" on:click={() => copy(state.mac || '')}
+                  >file_copy</span
+                >
+              </CustomPrerender>
+              {#if !$status.mac}
+                <span
+                  class="cached-data"
+                  title="Nem sikerült frissíteni, az adat memóriából lett betöltve"
+                  >(utolsó ismert adat)</span
+                >
+              {/if}
+            {:else}
+              <span> Frissítés... </span>
+            {/if}
+          </sl-tooltip>
         </td>
       </tr>
 
@@ -92,24 +139,39 @@
       </tr>
     </tbody>
   </table>
-  {#if $status['logged-in'] == 'yes'}
-    <a href="https://captiveportal.mora.u-szeged.hu/logout?redirect=app" id="logout"
-      >Kijelentkezés</a
-    >
-  {/if}
-  {#if !browser || $status['logged-in'] != 'yes'}
-    <a href="https://captiveportal.mora.u-szeged.hu/login?redirect=app" id="login">Bejelentkezés</a>
-  {/if}
+  <div class="auth-buttons">
+    {#if $status['logged-in'] == 'yes'}
+      <sl-button size="large" href="https://captiveportal.mora.u-szeged.hu/logout?redirect=app">
+        Kijelentkezés
+      </sl-button>
+
+      <sl-button
+        variant="text"
+        size="large"
+        href="https://captiveportal.mora.u-szeged.hu/logout?redirect=app&erase-cookie=on"
+      >
+        <span class="danger"> Eszköz törlése </span>
+      </sl-button>
+    {/if}
+    {#if !browser || $status['logged-in'] != 'yes'}
+      <sl-button size="large" href="https://captiveportal.mora.u-szeged.hu/login?redirect=app">
+        Bejelentkezés
+      </sl-button>
+    {/if}
+  </div>
 </article>
 
 <style lang="scss">
   article {
     color: var(--sl-color-neutral-900);
-    min-height: 90vh;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+  }
+  sl-tooltip {
+    cursor: pointer;
   }
 
   h1 {
@@ -156,14 +218,20 @@
   :global(.sl-theme-dark) table td {
     border-bottom-color: #505050;
   }
-  #login,
-  #logout {
-    border-radius: 6px;
-    background: #3e4d59;
-    text-align: center;
-    padding: 15px;
-    text-decoration: none;
-    color: white;
+  .auth-buttons {
+    --sl-input-border-width: 0px;
+    place-content: space-between;
+    & > * {
+      border: none;
+      margin-bottom: 15px;
+    }
+    sl-button:not([variant='text'])::part(base) {
+      background-color: #3e4d59;
+      color: white;
+    }
+  }
+  .danger {
+    color: var(--sl-color-danger-500) !important;
   }
 
   .cached-data {
@@ -171,5 +239,10 @@
     opacity: 0.8;
     margin-top: 0.2em;
     display: block;
+  }
+
+  .copy-icon {
+    display: inline;
+    color: var(--sl-color-neutral-500);
   }
 </style>
