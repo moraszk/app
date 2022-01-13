@@ -146,6 +146,7 @@
       </sl-button>
 
       <sl-button
+        class="delete-button"
         variant="text"
         size="large"
         href="https://captiveportal.mora.u-szeged.hu/logout?redirect=app&erase-cookie=on"
@@ -215,9 +216,6 @@
     font-weight: 700;
   }
 
-  :global(.sl-theme-dark) table td {
-    border-bottom-color: #505050;
-  }
   .auth-buttons {
     --sl-input-border-width: 0px;
     place-content: space-between;
@@ -244,5 +242,10 @@
   .copy-icon {
     display: inline;
     color: var(--sl-color-neutral-500);
+  }
+
+  .delete-button:hover {
+    border-radius: 5px;
+    background-color: rgb(255 0 0 / 0.1);
   }
 </style>
