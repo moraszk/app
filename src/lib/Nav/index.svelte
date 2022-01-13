@@ -305,13 +305,13 @@
       }
     }
     & a {
-      // &[target='_blank']::after {
-      //   opacity: 0.75;
-      //   margin-left: 5px;
-      //   font-size: 0.75em;
-      //   content: 'launch';
-      //   font-family: 'Material Icons';
-      // }
+      &[target='_blank']::after {
+        color: var(--sl-color-neutral-500);
+        margin-left: 3px;
+        font-size: 0.75em;
+        content: 'launch';
+        font-family: 'Material Icons';
+      }
       text-decoration: none;
       color: #ff7eee;
       display: flex;
