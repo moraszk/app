@@ -26,10 +26,11 @@
         </a>
         vagy nyisd meg egy másik böngészőben ezt.
       </center>
+      <meta http-equiv="refresh" content="5; url='https://captiveportal.mora.u-szeged.hu'">
     </noscript>
     <script nomodule>
-      document.getElementById('noscript').outerHTML = document.getElementById('noscript').innerHTML;
-      setTimeout(() => document.location.replace('https://captiveportal.mora.u-szeged.hu'), 5000);
+      document.getElementById('noscript').outerHTML = unescape(document.getElementById('noscript').innerText);
+      setTimeout(function() {document.location = 'https://captiveportal.mora.u-szeged.hu'}, 5000);
     </script>
     <div id="svelte">%svelte.body%</div>
   </body>

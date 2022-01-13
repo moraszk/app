@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import { browser } from '$app/env';
   import '../app.scss';
   import Theme from '$lib/Theme.svelte';
@@ -7,9 +8,12 @@
   import FillAvailable from '$lib/FillAvailable.svelte';
   import { goto } from '$app/navigation';
   import StatusUpdate from '$lib/StatusUpdate.svelte';
+
   $: browser &&
     window.location.pathname.endsWith('/') &&
     goto(window.location.pathname.slice(0, -1) + window.location.search);
+
+  onMount(() => import('@webcomponents/webcomponentsjs/webcomponents-bundle.js'));
 </script>
 
 <StatusUpdate />
