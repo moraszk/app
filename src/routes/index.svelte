@@ -131,10 +131,12 @@
       <tr>
         <td>Rendszergazdák ábécében</td>
         <td>
-          Juhász Andor (V/14),<br />
-          Kiss Ádám (III/S),<br />
-          Südi Tamás (I/4),<br />
-          Tajti Viktor (V/14)
+          <ul class="admins">
+            <li>Juhász Andor (V/14),</li>
+            <li>Kiss Ádám (III/S),</li>
+            <li>Südi Tamás (I/4),</li>
+            <li>Tajti Viktor (V/14)</li>
+          </ul>
         </td>
       </tr>
     </tbody>
@@ -171,6 +173,7 @@
     justify-content: center;
     flex-direction: column;
   }
+
   sl-tooltip {
     cursor: pointer;
   }
@@ -200,7 +203,6 @@
 
   table tr {
     border-bottom: 1px solid #e6e6e6aa;
-    max-width: 420px;
   }
 
   table td {
@@ -213,14 +215,12 @@
   }
 
   table td:first-child {
-    font-weight: 700;
+    font-weight: bold;
   }
 
   .auth-buttons {
     --sl-input-border-width: 0px;
-    place-content: space-between;
     & > * {
-      border: none;
       margin-bottom: 15px;
     }
     sl-button:not([variant='text'])::part(base) {
@@ -247,5 +247,11 @@
   .delete-button:hover {
     border-radius: 5px;
     background-color: rgb(255 0 0 / 0.1);
+  }
+
+  .admins {
+    padding-left: 0;
+    list-style: none;
+    margin: 0;
   }
 </style>
