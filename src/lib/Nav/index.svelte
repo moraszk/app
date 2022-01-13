@@ -361,9 +361,13 @@
     &::-webkit-scrollbar {
       width: 0;
     }
-    &:hover::-webkit-scrollbar {
-      width: 0.15em;
+    &:hover {
+      scrollbar-width: thin;
+      &::-webkit-scrollbar {
+        width: 0.1em;
+      }
     }
+    scrollbar-color: #6649b888 #1e1e2430;
     &::-webkit-scrollbar-track {
       background: #1e1e2430;
     }
