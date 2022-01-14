@@ -25,7 +25,7 @@
     &.black {
       --sl-color-neutral-0: #000;
       --sl-color-neutral-50: #000;
-      --sl-color-neutral-900: #b6b6b6;
+      --sl-color-neutral-900: #dadada;
     }
   }
 </style>
