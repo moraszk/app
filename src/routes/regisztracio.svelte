@@ -3,7 +3,7 @@
   // import '@fontsource/material-icons'; // Defaults to weight 400.
   import { amoled } from '$lib/storage/theme';
   import { status } from '$lib/storage/captive';
-  import { browser } from '$app/env';
+  // import { browser } from '$app/env';
   import resolveNotBefore from '$lib/util/resolveNotBefore';
   $: error = { success: false, message: '' };
   let alert: any;
@@ -258,7 +258,7 @@
         <span class="material-icons" slot="prefix"> email </span>
       </sl-input>
 
-      {#if !$status.username}
+      <!-- {#if !$status.username}
         <div
           style={browser && new URL(window.location.href).searchParams.get('captha')
             ? 'display: none;'
@@ -286,7 +286,7 @@
             <span class="material-icons" slot="prefix"> pan_tool </span>
           </sl-input>
         </div>
-      {/if}
+      {/if} -->
 
       <footer>
         <sl-checkbox name="agree" value="yes" required>
@@ -340,13 +340,13 @@
   sl-button {
     min-width: 100px;
   }
-  .a {
-    display: inline-block;
-    white-space: nowrap;
-    font-size: 16px;
-    width: 14px;
-    overflow: hidden;
-    text-overflow: clip;
-    text-overflow: ellipsis;
-  }
+  // .a {
+  //   display: inline-block;
+  //   white-space: nowrap;
+  //   font-size: 16px;
+  //   width: 14px;
+  //   overflow: hidden;
+  //   text-overflow: clip;
+  //   text-overflow: ellipsis;
+  // }
 </style>
