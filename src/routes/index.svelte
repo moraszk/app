@@ -150,7 +150,7 @@
         size="large"
         href="https://captiveportal.mora.u-szeged.hu/logout?redirect=app&erase-cookie=on"
       >
-        <span class="danger"> Eszköz törlése </span>
+        <span class="primary"> Eszköz törlése </span>
       </sl-button>
     {/if}
     {#if !browser || $status['logged-in'] != 'yes'}
@@ -225,8 +225,8 @@
       color: white;
     }
   }
-  .danger {
-    color: var(--sl-color-danger-500) !important;
+  .primary {
+    color: var(--sl-color-primary-500) !important;
   }
 
   .cached-data {
@@ -243,7 +243,7 @@
 
   .delete-button:hover {
     border-radius: 5px;
-    background-color: rgb(255 0 0 / 0.1);
+    background-color: #8181811f;
   }
 
   .admins {
