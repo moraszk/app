@@ -337,6 +337,7 @@
     a {
       height: 5rem;
       padding: 0 24px;
+      filter: none;
     }
     .icon {
       width: 2rem;
@@ -460,6 +461,10 @@
         width: 15.5rem !important;
         background-color: var(--sl-color-neutral-0);
       }
+    }
+    li a,
+    .nav-header a {
+      filter: grayscale(1) opacity(0.85);
     }
     .nav-items {
       // min-height: 100%;
