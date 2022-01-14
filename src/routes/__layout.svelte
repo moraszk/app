@@ -44,6 +44,8 @@
     min-height: calc(100 * var(--vh));
     min-height: -webkit-fill-available;
     font-family: 'Roboto', sans-serif;
+    --style-transition: background-color 200ms, color 200ms;
+    transition: var(--style-transition);
   }
 
   main {
