@@ -39,7 +39,7 @@
       <tr>
         <td>Belső IP cím</td>
         <td>
-          <sl-tooltip>
+          <sl-tooltip on:click={() => state.ip && copy(state.ip)}>
             <div slot="content">
               {#if loaded}
                 másolás
@@ -48,15 +48,14 @@
             {#if state.ip}
               {state.ip}
               <CustomPrerender>
-                <span class="material-icons copy-icon" on:click={() => copy(state.ip || '')}
-                  >file_copy</span
-                >
+                <span class="material-icons copy-icon">file_copy</span>
               </CustomPrerender>
               {#if !$status.ip && !$statusBan.ip}
                 <span
                   class="cached-data"
                   title="Nem sikerült frissíteni, az adat memóriából lett betöltve"
-                  >(utolsó ismert adat)</span
+                >
+                  (utolsó ismert adat)</span
                 >
               {/if}
             {:else}
@@ -69,7 +68,7 @@
       <tr>
         <td>Eszköz azonosító</td>
         <td>
-          <sl-tooltip>
+          <sl-tooltip on:click={() => state.mac && copy(state.mac)}>
             <div slot="content">
               {#if loaded}
                 másolás
@@ -78,9 +77,7 @@
             {#if state.mac}
               {state.mac}
               <CustomPrerender>
-                <span class="material-icons copy-icon" on:click={() => copy(state.mac || '')}
-                  >file_copy</span
-                >
+                <span class="material-icons copy-icon">file_copy</span>
               </CustomPrerender>
               {#if !$status.mac}
                 <span
