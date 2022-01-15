@@ -15,7 +15,14 @@
 
   let timer: NodeJS.Timer;
 
-  const onLoaded = () => goto(link, { replaceState: true });
+  let loaded = false;
+
+  const onLoaded = () => {
+    if (!loaded) {
+      goto(link, { replaceState: true });
+    }
+    loaded = true;
+  };
   const isEmpty = (o: Object) => Object.keys(o).length == 0;
 
   onMount(() => {

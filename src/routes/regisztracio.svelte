@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onDestroy, onMount } from 'svelte';
   // import '@fontsource/material-icons'; // Defaults to weight 400.
   import { amoled } from '$lib/storage/theme';
   import { status } from '$lib/storage/captive';
@@ -57,6 +57,8 @@
   $: loading = true;
   $: connected = false;
 
+  let checkIt: ?NodeJS.Timer;
+
   onMount(async () => {
     import('@shoelace-style/shoelace/dist/components/spinner/spinner.js');
 
@@ -79,11 +81,17 @@
       await resolveNotBefore(() => fetch('https://acc.mora.u-szeged.hu/'), 1000);
       connected = true;
     } catch (err) {
-      setInterval(
-        () => !connected && fetch('https://acc.mora.u-szeged.hu/').then(() => (connected = true)),
-        5000
-      );
+      checkIt = setInterval(async () => {
+        await fetch('https://acc.mora.u-szeged.hu/');
+        connected = true;
+        checkIt && clearInterval(checkIt);
+        checkIt = null;
+      }, 5000);
     }
+  });
+  onDestroy(() => {
+    checkIt && clearInterval(checkIt);
+    checkIt = null;
   });
 </script>
 
