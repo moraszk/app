@@ -97,7 +97,7 @@
         <td>Tiltások:</td>
         <td>
           Torrentezés: {#if $statusBan['torrent-guys'] === true}
-            <span style="color: red; font-weight:bold; font-size: 200%"
+            <span style="color: red; font-weight:bold"
               >Fekete lista!!! A feloldást a <a href="https://support.mora.u-szeged.hu"
                 >support.mora.u-szeged.hu</a
               > oldalon kérheted!</span
@@ -109,7 +109,7 @@
           {/if}
           <br />
           Túl sok kapcsolat: {#if $statusBan['many-connections'] === true}
-            <span style="color: red; font-weight:bold; font-size: 200%"
+            <span style="color: red; font-weight:bold"
               >Fekete lista!!! A feloldást a <a href="https://support.mora.u-szeged.hu"
                 >support.mora.u-szeged.hu</a
               > oldalon kérheted!</span
@@ -131,7 +131,7 @@
           <ul class="admins">
             <li>Juhász Andor (V/14),</li>
             <li>Kiss Ádám (III/S),</li>
-            <li>Kiszel Pál (I/5)</li>
+            <li>Kiszel Pál (I/5),</li>
             <li>Südi Tamás (I/4),</li>
             <li>Tajti Viktor (V/14)</li>
           </ul>

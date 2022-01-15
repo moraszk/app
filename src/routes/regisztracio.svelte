@@ -57,7 +57,7 @@
   $: loading = true;
   $: connected = false;
 
-  let checkIt: ?NodeJS.Timer;
+  let checkIt: NodeJS.Timer;
 
   onMount(async () => {
     import('@shoelace-style/shoelace/dist/components/spinner/spinner.js');
@@ -84,14 +84,12 @@
       checkIt = setInterval(async () => {
         await fetch('https://acc.mora.u-szeged.hu/');
         connected = true;
-        checkIt && clearInterval(checkIt);
-        checkIt = null;
+        clearInterval(checkIt);
       }, 5000);
     }
   });
   onDestroy(() => {
-    checkIt && clearInterval(checkIt);
-    checkIt = null;
+    clearInterval(checkIt);
   });
 </script>
 
