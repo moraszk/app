@@ -62,13 +62,13 @@
   }
   @media screen and (min-width: $br-lg) {
     main {
-      margin-right: 5rem;
+      //   margin-right: 5rem;
     }
   }
   @media screen and (min-width: $br-xl) {
     main {
       margin-left: 16rem;
-      margin-right: 5rem;
+      //    margin-right: 5rem;
     }
   }
 
