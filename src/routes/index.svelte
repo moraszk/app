@@ -143,7 +143,7 @@
     </table>
     <div class="auth-buttons">
       {#if $status['logged-in'] == 'yes'}
-        <sl-button size="large" href="https://captiveportal.mora.u-szeged.hu/logout?redirect=app">
+        <sl-button size="large" class="button-default" href="https://captiveportal.mora.u-szeged.hu/logout?redirect=app">
           Kijelentkezés
         </sl-button>
 
@@ -157,7 +157,7 @@
         </sl-button>
       {/if}
       {#if !browser || $status['logged-in'] != 'yes'}
-        <sl-button size="large" href="https://captiveportal.mora.u-szeged.hu/login?redirect=app">
+        <sl-button size="large" variant="warning" href="https://captiveportal.mora.u-szeged.hu/login?redirect=app">
           Bejelentkezés
         </sl-button>
       {/if}
@@ -225,7 +225,7 @@
     & > * {
       margin-bottom: 15px;
     }
-    sl-button:not([variant='text'])::part(base) {
+    sl-button.button-default::part(base) {
       background-color: #3e4d59;
       color: white;
     }
