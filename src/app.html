@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="hu">
   <head>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=Array.prototype.includes,ArrayBuffer,Map,Number.parseInt,Object.assign,Promise,Promise.prototype.finally,Set,String.prototype.includes,Symbol,URL"></script>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -30,7 +31,7 @@
     </noscript>
     <script nomodule>
       document.getElementById('noscript').outerHTML = unescape(document.getElementById('noscript').innerText);
-      alert("A bongeszod nem tamogatott. A https://captiveportal.mora.u-szeged.hu tudod megnezni az eszkozod allapotat.")
+      alert("A bongeszod nem tamogatott. A https://captiveportal.mora.u-szeged.hu/status tudod megnezni az eszkozod allapotat.")
     </script>
     <div id="svelte">%svelte.body%</div>
   </body>
