@@ -138,8 +138,13 @@
         <span class="label">Support</span>
       </a>
     </li>
-    <!-- <li>
-      <a href="https://drive.mora.u-szeged.hu" class="nav-item">
+    <li class:disabled={!$status.username}>
+      <a
+        href="https://drive.mora.u-szeged.hu"
+        class="nav-item"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <CustomPrerender>
           <svg width="32" height="28.444444444444443" viewBox="0 0 576 512"
             ><path
@@ -150,7 +155,7 @@
         </CustomPrerender>
         <span class="label">Tárhely</span>
       </a>
-    </li> -->
+    </li>
     <li>
       <a href="/experimental" class="nav-item">
         <CustomPrerender>
