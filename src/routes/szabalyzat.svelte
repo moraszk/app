@@ -10,6 +10,9 @@
   <article id="terms">
     <section id="kolinet">
       <h2>A kollégiumi hálózat</h2>
+
+      <p>A jelen szabályzat kidolgozás alatt van, jelenleg még csak útmutatásként szolgál</p>
+
       <p>Az SZTE Móra Ferenc Szakkollégium hálózatának (MóraNET) üzemeltetője maga a kollégium.</p>
       <h4>Hálózathasználati feltételek</h4>
       <p>
