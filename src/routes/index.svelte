@@ -19,7 +19,7 @@
   });
 
   $: state = {
-    ip: $status.ip || (browser && window.localStorage?.getItem('ip')) || '',
+    ip: $status.ip || $statusBan.ip || (browser && window.localStorage?.getItem('ip')) || '',
     mac: $status.mac || (browser && window.localStorage?.getItem('mac')) || '',
     username: $status.username || '',
   };
