@@ -1,12 +1,24 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onDestroy, onMount } from 'svelte';
   let csatornalista: any = {};
 
+  let int: NodeJS.Timer;
+  const update = () => {
+    fetch('https://iptv.mora.u-szeged.hu/csatornalista.json')
+      .then((response) => response.json())
+      .then((data) => {
+        csatornalista = data;
+      });
+  };
   onMount(async () => {
     import('@shoelace-style/shoelace/dist/components/card/card.js');
-    csatornalista = await fetch('https://iptv.mora.u-szeged.hu/csatornalista.json').then((x) =>
-      x.json()
-    );
+
+    update();
+    const ONE_MINUTE = 60000;
+    setInterval(update, 10 * ONE_MINUTE);
+  });
+  onDestroy(() => {
+    clearInterval(int);
   });
 </script>
 
@@ -38,15 +50,14 @@
   {/each}
 </div>
 
-<style>
+<style lang="scss">
   .card-header [slot='header'] {
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
   sl-card {
-    width: 270px;
-    min-width: 270px;
+    width: 100%;
     height: 125px;
     --border-color: transparent;
 
@@ -69,5 +80,10 @@
     text-align: right;
     float: right;
     color: var(--sl-color-neutral-600);
+  }
+  @media screen and (min-width: $br-md) {
+    sl-card {
+      width: 270px;
+    }
   }
 </style>
