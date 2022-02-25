@@ -266,12 +266,12 @@
   }
   nav {
     position: fixed;
-    bottom: 0;
+    top: 0;
     right: 0;
     z-index: 1000;
 
     display: flex;
-    flex-direction: column-reverse; // mobile
+    flex-direction: column; // mobile
 
     max-width: 75%;
     transition: width 400ms 150ms ease, box-shadow 400ms 150ms, var(--style-transition);
@@ -358,7 +358,7 @@
   }
   .nav-items {
     flex: 2;
-    flex-direction: column-reverse; // mobile
+    flex-direction: column; // mobile
     overflow-y: scroll;
     scrollbar-width: none;
     &::-webkit-scrollbar {
