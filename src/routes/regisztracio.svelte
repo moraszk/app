@@ -301,7 +301,7 @@
           </a>
         </sl-checkbox>
 
-        <sl-button variant="primary" class="submit" loading={!connected} submit>Submit</sl-button>
+        <sl-button variant="primary" class="submit" submit>Submit</sl-button>
       </footer>
     </sl-form>
   {/if}
