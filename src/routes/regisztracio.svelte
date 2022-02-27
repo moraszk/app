@@ -137,7 +137,7 @@
         name="password"
         variant="text"
         label="jelenlegi jelszó"
-        placeholder="********"
+        placeholder="***"
         type="password"
         toggle-password
       >
