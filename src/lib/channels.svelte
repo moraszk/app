@@ -81,6 +81,9 @@
     float: right;
     color: var(--sl-color-neutral-600);
   }
+  .card-wrapper {
+    width: 100%;
+  }
   @media screen and (min-width: $br-md) {
     sl-card {
       width: 270px;

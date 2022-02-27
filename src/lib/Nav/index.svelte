@@ -267,7 +267,7 @@
   nav {
     position: fixed;
     top: 0;
-    right: 0;
+    left: 0;
     z-index: 1000;
 
     display: flex;
@@ -343,7 +343,7 @@
       width: 2rem;
       padding: 0;
       transition: transform 400ms;
-      transform: rotate(calc(var(--nav-open) * 180deg + 180deg));
+      transform: rotate(calc(var(--nav-open) * -180deg));
       & path:first-child {
         color: #df49a6;
       }
@@ -478,9 +478,6 @@
         position: absolute;
         transition: left 400ms 150ms;
         left: calc((1 - var(--nav-open)) * -200px);
-      }
-      .icon {
-        transform: rotate(calc(var(--nav-open) * -180deg));
       }
     }
   }
