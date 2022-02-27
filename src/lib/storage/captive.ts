@@ -28,6 +28,7 @@ status.subscribe((x) => {
   if (browser && 'localStorage' in window) {
     x.mac && window.localStorage.setItem('mac', x.mac);
     x.ip && window.localStorage.setItem('ip', x.ip);
+    x.username && window.localStorage.setItem('username', x.username);
   }
 });
 
@@ -41,7 +42,7 @@ export async function check() {
   }, 2000);
   Promise.all(
     [
-      { url: 'https://captiveportal.mora.u-szeged.hu/debuginfo.txt', storage: status },
+      { url: 'https://captiveportal.mora.u-szeged.hu/api/status.txt', storage: status },
       { url: 'https://status.mora.u-szeged.hu/userban-app', storage: statusBan },
     ].map(({ url, storage }) =>
       fetch(url)

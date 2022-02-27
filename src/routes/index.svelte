@@ -7,14 +7,18 @@
   import CustomPrerender from '$lib/CustomPrerender.svelte';
   import { status, statusBan } from '$lib/storage/captive';
   import { onMount } from 'svelte';
+  import { amoled } from '$lib/storage/theme';
   import Channels from '$lib/channels.svelte';
 
   $: loaded = false;
-
+  $: error = '';
   onMount(() => {
     Promise.all([
       import('@shoelace-style/shoelace/dist/components/button/button.js'),
       import('@shoelace-style/shoelace/dist/components/tooltip/tooltip.js'),
+      import('@shoelace-style/shoelace/dist/components/form/form.js'),
+      import('@shoelace-style/shoelace/dist/components/alert/alert.js'),
+      import('@shoelace-style/shoelace/dist/components/input/input.js'),
     ]).then(() => (loaded = true));
   });
 
@@ -27,6 +31,21 @@
   const copy = (text?: string) => {
     'clipboard' in navigator && navigator.clipboard.writeText(text || JSON.stringify(state));
   };
+
+  async function onLogin(e: CustomEvent) {
+    const { formData } = e.detail;
+    const resp = await fetch(
+      `https://captiveportal.mora.u-szeged.hu/api/login?username=${formData.get(
+        'username'
+      )}&password=${formData.get('password')}`,
+      {
+        method: 'POST',
+      }
+    );
+    const result = await resp.json();
+    error = result.error;
+    status.set(result);
+  }
 </script>
 
 <svelte:head>
@@ -35,7 +54,45 @@
 
 <div id="main">
   <article class="flex-2">
-    <h1 id="welcome">Üdv{$status.username ? ' ' : ''}{$status.username || ''}!</h1>
+    <h1 id="welcome">Üdv {$status.username || 'ismeretlen'}!</h1>
+    {#if !browser || $status['logged-in'] != 'yes'}
+      <sl-form class="form-overview" on:sl-submit={onLogin}>
+        <sl-input
+          value={$status.username || (browser && 'localStorage' in window)
+            ? localStorage.getItem('username')
+            : ''}
+          filled={!$amoled}
+          name="username"
+          variant="text"
+          label="felhasználónév"
+          spellcheck="false"
+          required
+          clearable
+        >
+          <span class="material-icons" slot="prefix"> login </span>
+        </sl-input>
+
+        <sl-input
+          filled={!$amoled}
+          spellcheck="false"
+          name="password"
+          variant="text"
+          label="jelszó"
+          required
+          type="password"
+          toggle-password
+        />
+        <sl-button size="large" variant="warning" submit> Eszköz aktiválása </sl-button>
+        {#if error != ''}
+          <sl-alert variant="danger" closable duration="5000" open>
+            <span class="material-icons" slot="icon"> report </span>
+
+            {error}
+          </sl-alert>
+        {/if}
+      </sl-form>
+      <!-- <a href="https://captiveportal.mora.u-szeged.hu">A régi bejelentkező felület</a><br /> -->
+    {/if}
     <table>
       <tbody>
         <tr>
@@ -123,10 +180,14 @@
             {/if}
           </td>
         </tr>
-        <tr>
-          <td>Internethasználati idő</td>
-          <td>{$status.uptime || 'frissítés...'}</td>
-        </tr>
+
+        {#if $status.username}
+          <tr>
+            <td>Internethasználati idő</td>
+            <td>{$status.uptime || 'frissítés...'}</td>
+          </tr>
+        {/if}
+
         <tr>
           <td>Rendszergazdák ábécében</td>
           <td>
@@ -141,9 +202,14 @@
         </tr>
       </tbody>
     </table>
+
     <div class="auth-buttons">
       {#if $status['logged-in'] == 'yes'}
-        <sl-button size="large" class="button-default" href="https://captiveportal.mora.u-szeged.hu/logout?redirect=app">
+        <sl-button
+          size="large"
+          class="button-default"
+          href="https://captiveportal.mora.u-szeged.hu/logout?redirect=app"
+        >
           Kijelentkezés
         </sl-button>
 
@@ -152,13 +218,9 @@
           variant="text"
           size="large"
           href="https://captiveportal.mora.u-szeged.hu/logout?redirect=app&erase-cookie=on"
+          on:click={() => 'localStorage' in window && localStorage.clear()}
         >
           <span class="primary"> Eszköz törlése </span>
-        </sl-button>
-      {/if}
-      {#if !browser || $status['logged-in'] != 'yes'}
-        <sl-button size="large" variant="warning" href="https://captiveportal.mora.u-szeged.hu/login?redirect=app">
-          Bejelentkezés
         </sl-button>
       {/if}
     </div>
@@ -169,6 +231,12 @@
 </div>
 
 <style lang="scss">
+  sl-form > * {
+    margin-bottom: 1.2em;
+  }
+  sl-button {
+    min-width: 100%;
+  }
   article {
     color: var(--sl-color-neutral-900);
     display: flex;
