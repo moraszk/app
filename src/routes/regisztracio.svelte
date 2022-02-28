@@ -1,10 +1,9 @@
 <script lang="ts">
-  import { onDestroy, onMount } from 'svelte';
+  import { onMount } from 'svelte';
   // import '@fontsource/material-icons'; // Defaults to weight 400.
   import { amoled } from '$lib/storage/theme';
   import { status } from '$lib/storage/captive';
   // import { browser } from '$app/env';
-  import resolveNotBefore from '$lib/util/resolveNotBefore';
   $: error = { success: false, message: '' };
   let alert: any;
 
@@ -55,9 +54,6 @@
   }
 
   $: loading = true;
-  $: connected = false;
-
-  let checkIt: NodeJS.Timer;
 
   onMount(async () => {
     import('@shoelace-style/shoelace/dist/components/spinner/spinner.js');
@@ -75,21 +71,6 @@
       import('@shoelace-style/shoelace/dist/components/icon/icon.js'),
       import('@shoelace-style/shoelace/dist/components/alert/alert.js'),
     ]).then(() => (loading = false));
-
-    try {
-      // Set connected to true when acc.mora is reachable
-      await resolveNotBefore(() => fetch('https://acc.mora.u-szeged.hu/'), 1000);
-      connected = true;
-    } catch (err) {
-      checkIt = setInterval(async () => {
-        await fetch('https://acc.mora.u-szeged.hu/');
-        connected = true;
-        clearInterval(checkIt);
-      }, 5000);
-    }
-  });
-  onDestroy(() => {
-    clearInterval(checkIt);
   });
 </script>
 
@@ -100,8 +81,7 @@
     <p>
       Ahhoz, hogy használni tudd a kollégiumi hálózatot a következő félévben is, frissítened kell az
       adataidat. <a href="https://acc.mora.u-szeged.hu"
-        >Jelszó változtatás (utána újra kell regisztrálnod)</a
-      >
+        >Jelszó változtatás</a> (utána újra kell regisztrálnod és azt fogja kiírni, hogy a felhasználó már létezik)
     </p>
 
     <sl-alert
