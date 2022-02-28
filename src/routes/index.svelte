@@ -78,6 +78,7 @@
           variant="text"
           label="felhasználónév"
           spellcheck="false"
+          placeholder="******"
           required
           clearable
         >
