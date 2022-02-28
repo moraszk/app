@@ -99,7 +99,9 @@
 
     <p>
       Ahhoz, hogy használni tudd a kollégiumi hálózatot a következő félévben is, frissítened kell az
-      adataidat.
+      adataidat. <a href="https://acc.mora.u-szeged.hu"
+        >Jelszó változtatás (utána újra kell regisztrálnod)</a
+      >
     </p>
 
     <sl-alert
