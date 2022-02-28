@@ -12,6 +12,7 @@
 
   $: loaded = false;
   $: error = '';
+  let alert: any;
   onMount(() => {
     Promise.all([
       import('@shoelace-style/shoelace/dist/components/button/button.js'),
@@ -34,17 +35,25 @@
 
   async function onLogin(e: CustomEvent) {
     const { formData } = e.detail;
-    const resp = await fetch(
-      `https://captiveportal.mora.u-szeged.hu/api/login?username=${formData.get(
-        'username'
-      )}&password=${formData.get('password')}`,
-      {
-        method: 'POST',
-      }
-    );
-    const result = await resp.json();
-    error = result.error;
-    status.set(result);
+    try {
+      const resp = await fetch(
+        `https://captiveportal.mora.u-szeged.hu/api/login?username=${formData.get(
+          'username'
+        )}&password=${formData.get('password')}`,
+        {
+          method: 'POST',
+        }
+      );
+      const result = await resp.json();
+      error = result.error;
+      status.set(result);
+    } catch (err) {
+      error = JSON.stringify(err);
+      if (error == '{}')
+        error = 'Nem sikerült csatlakozni a hálózathoz. A kollégiumi hálózaton vagy?';
+    }
+
+    alert.toast();
   }
 </script>
 
@@ -81,15 +90,19 @@
           required
           type="password"
           toggle-password
-        />
+        >
+          <span class="material-icons" slot="prefix"> pin </span></sl-input
+        >
         <sl-button size="large" variant="warning" submit> Eszköz aktiválása </sl-button>
-        {#if error != ''}
-          <sl-alert variant="danger" closable duration="5000" open>
-            <span class="material-icons" slot="icon"> report </span>
 
-            {error}
-          </sl-alert>
-        {/if}
+        <sl-alert
+          bind:this={alert}
+          variant={error == '' ? 'success' : 'danger'}
+          duration="5000"
+          closable
+        >
+          <strong>{error || 'Sikeres bejelentkezés'}</strong>
+        </sl-alert>
       </sl-form>
       <!-- <a href="https://captiveportal.mora.u-szeged.hu">A régi bejelentkező felület</a><br /> -->
     {/if}
