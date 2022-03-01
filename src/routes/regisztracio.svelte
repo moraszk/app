@@ -127,6 +127,20 @@
       </sl-input>
 
       <sl-input
+      filled={!$amoled}
+      required
+      spellcheck="false"
+      name="newpassword"
+      variant="text"
+      label="új jelszó"
+      placeholder="******"
+      type="password"
+      toggle-password
+    >
+      <span class="material-icons" slot="prefix"> pin </span>
+    </sl-input>
+
+      <sl-input
         filled={!$amoled}
         required
         name="firstname"
