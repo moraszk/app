@@ -78,7 +78,6 @@
           variant="text"
           label="felhasználónév"
           spellcheck="false"
-          placeholder="******"
           required
           clearable
         >
@@ -93,6 +92,7 @@
           label="jelszó"
           required
           type="password"
+          placeholder="********"
           toggle-password
         >
           <span class="material-icons" slot="prefix"> pin </span></sl-input
