@@ -38,6 +38,7 @@
     const data = new URLSearchParams()
     data.append('username', formData.get('username'))
     data.append('password', formData.get('password'))
+    error = '';
 
     try {
       const resp = await fetch(
@@ -98,11 +99,12 @@
           <span class="material-icons" slot="prefix"> pin </span></sl-input
         >
         <sl-button size="large" variant="warning" submit> Eszköz aktiválása </sl-button>
+        <div><a id="captiveportallink" href="https://captiveportal.mora.u-szeged.hu/login?redirect=no">Gyakran be kell jelentkeznem</div>
 
         <sl-alert
           bind:this={alert}
           variant={error == '' ? 'success' : 'danger'}
-          duration="5000"
+          duration="3000"
           closable
         >
           <strong>{error || 'Sikeres bejelentkezés'}</strong>
@@ -248,6 +250,9 @@
 </div>
 
 <style lang="scss">
+  #captiveportallink {
+    color: var(--sl-color-neutral-500);
+  }
   sl-form > * {
     margin-bottom: 1.2em;
   }
