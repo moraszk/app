@@ -447,6 +447,11 @@
   #nav-toggler {
     display: none;
   }
+
+  .nav-title > .icon {
+    max-height: 10rem;
+  }
+
   @media screen and (min-width: $br-md) {
     .nav-overlay {
       width: 0;
@@ -477,6 +482,9 @@
     }
     .nav-title {
       flex-direction: row-reverse;
+      & > .icon {
+        max-height: 2rem;
+      }
       .label {
         text-align: center;
         // padding: 0;
