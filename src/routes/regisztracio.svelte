@@ -132,7 +132,7 @@
       spellcheck="false"
       name="newpassword"
       variant="text"
-      label="Új jelszó"
+      label="új jelszó"
       placeholder="******"
       type="password"
       toggle-password
