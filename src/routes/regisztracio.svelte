@@ -79,9 +79,7 @@
     <h2 class="title">Hálózati regisztráció</h2>
 
     <p>
-      Ahhoz, hogy használni tudd a kollégiumi hálózatot a következő félévben is, frissítened kell az
-      adataidat. <a href="https://acc.mora.u-szeged.hu"
-        >Jelszó változtatás</a> (utána újra kell regisztrálnod és azt fogja kiírni, hogy a felhasználó már létezik)
+      Ahhoz, hogy használni tudd a kollégiumi hálózatot a következő félévben is, frissítened kell az adataidat.
     </p>
 
     <sl-alert
