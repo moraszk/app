@@ -32,28 +32,33 @@ status.subscribe((x) => {
   }
 });
 
-let timeout: NodeJS.Timer;
+let timeout1: NodeJS.Timer;
+let timeout2: NodeJS.Timer;
 
 export async function check() {
-  clearTimeout(timeout);
-  timeout = setTimeout(() => {
-    status.set({});
-    statusBan.set({});
-  }, 2000);
-  Promise.all(
-    [
-      { url: 'https://captiveportal.mora.u-szeged.hu/api/status.txt', storage: status },
-      { url: 'https://status.mora.u-szeged.hu/userban-app', storage: statusBan },
-    ].map(({ url, storage }) =>
-      fetch(url)
-        .then((x) => x.json())
-        .then((x) => storage.set(x))
-        .catch((err) => {
-          console.error(err);
-          storage.set({});
-        })
-    )
-  ).finally(() => clearTimeout(timeout));
+  clearTimeout(timeout1);
+  clearTimeout(timeout2);
+
+  timeout1 = setTimeout(() => status.set({}), 2000);
+  timeout2 = setTimeout(() => statusBan.set({}), 2000);
+
+  fetch('https://captiveportal.mora.u-szeged.hu/api/status.txt')
+    .then((x) => x.json())
+    .then((x) => status.set(x))
+    .catch((err) => {
+      console.error(err);
+      status.set({});
+    })
+    .finally(() => clearTimeout(timeout1));
+
+  fetch('https://status.mora.u-szeged.hu/userban-app')
+    .then((x) => x.json())
+    .then((x) => statusBan.set(x))
+    .catch((err) => {
+      console.error(err);
+      statusBan.set({});
+    })
+    .finally(() => clearTimeout(timeout2));
 }
 
 let it: NodeJS.Timer | null;
