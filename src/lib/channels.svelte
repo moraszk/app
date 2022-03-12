@@ -83,6 +83,9 @@
   }
   .card-wrapper {
     width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
   }
   @media screen and (min-width: $br-md) {
     sl-card {
