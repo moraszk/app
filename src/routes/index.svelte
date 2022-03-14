@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+ <script context="module" lang="ts">
   export const prerender = true;
 </script>
 
@@ -35,14 +35,18 @@
 
   async function onLogin(e: CustomEvent) {
     const { formData } = e.detail;
-    const body = new URLSearchParams();
-    body.append('username', formData.get('username'));
-    body.append('password', formData.get('password'));
+    const data = new URLSearchParams()
+    data.append('username', formData.get('username'))
+    data.append('password', formData.get('password'))
+
     try {
-      const resp = await fetch(`https://captiveportal.mora.u-szeged.hu/api/login`, {
-        method: 'POST',
-        body,
-      });
+      const resp = await fetch(
+        `https://captiveportal.mora.u-szeged.hu/api/login`,
+        {
+          method: 'POST',
+          body: data,
+        }
+      );
       const result = await resp.json();
       error = result.error;
       status.set(result);
