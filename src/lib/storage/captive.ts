@@ -42,7 +42,7 @@ export async function check() {
   timeout1 = setTimeout(() => status.set({}), 2000);
   timeout2 = setTimeout(() => statusBan.set({}), 2000);
 
-  fetch('https://captiveportal.mora.u-szeged.hu/api/status.txt')
+  fetch('https://captiveportal.mora.u-szeged.hu/api/status-next.txt')
     .then((x) => x.json())
     .then((x) => status.set(x))
     .catch((err) => {
