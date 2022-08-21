@@ -2,17 +2,17 @@
   import { onMount } from 'svelte';
   // import '@fontsource/material-icons'; // Defaults to weight 400.
   import { amoled } from '$lib/storage/theme';
-  import { status } from '$lib/storage/captive';
+  import { user } from '$lib/storage/captive';
   // import { browser } from '$app/env';
   $: error = { success: false, message: '' };
   let alert: any;
 
-  let initUsername = $status.username;
+  let initUsername = $user.username;
 
   $: username = initUsername || null;
 
   // set username from captiveportal on load
-  status.subscribe((x) => {
+  user.subscribe((x) => {
     if (x.username && username === null) {
       username = x.username;
     }
@@ -60,7 +60,6 @@
 
     await Promise.all([
       import('@shoelace-style/shoelace/dist/components/alert/alert.js'),
-      import('@shoelace-style/shoelace/dist/components/form/form.js'),
       import('@shoelace-style/shoelace/dist/components/input/input.js'),
       import('@shoelace-style/shoelace/dist/components/select/select.js'),
       import('@shoelace-style/shoelace/dist/components/menu-item/menu-item.js'),
@@ -79,7 +78,8 @@
     <h2 class="title">Hálózati regisztráció</h2>
 
     <p>
-      Ahhoz, hogy használni tudd a kollégiumi hálózatot a következő félévben is, frissítened kell az adataidat.
+      Ahhoz, hogy használni tudd a kollégiumi hálózatot a következő félévben is, frissítened kell az
+      adataidat.
     </p>
 
     <sl-alert
@@ -96,7 +96,7 @@
     <sl-spinner class="spinner" />
     <p class="text-center">Oldal betöltése...</p>
   {:else}
-    <sl-form class="form-overview" on:sl-submit={onSubmit}>
+    <form class="form-overview input-validation-required" on:sl-submit={onSubmit}>
       <sl-input
         value={username || ''}
         filled={!$amoled}
@@ -110,7 +110,7 @@
         <span class="material-icons" slot="prefix"> login </span>
       </sl-input>
 
-      <sl-input
+      <!-- <sl-input
         filled={!$amoled}
         required
         spellcheck="false"
@@ -122,21 +122,21 @@
         toggle-password
       >
         <span class="material-icons" slot="prefix"> pin </span>
-      </sl-input>
+      </sl-input> -->
 
       <sl-input
-      filled={!$amoled}
-      required
-      spellcheck="false"
-      name="newpassword"
-      variant="text"
-      label="új jelszó"
-      placeholder="******"
-      type="password"
-      toggle-password
-    >
-      <span class="material-icons" slot="prefix"> pin </span>
-    </sl-input>
+        filled={!$amoled}
+        required
+        spellcheck="false"
+        name="newpassword"
+        variant="text"
+        label="új jelszó"
+        placeholder="******"
+        type="password"
+        toggle-password
+      >
+        <span class="material-icons" slot="prefix"> pin </span>
+      </sl-input>
 
       <sl-input
         filled={!$amoled}
@@ -297,7 +297,7 @@
 
         <sl-button variant="primary" class="submit" submit>Submit</sl-button>
       </footer>
-    </sl-form>
+    </form>
   {/if}
 </section>
 

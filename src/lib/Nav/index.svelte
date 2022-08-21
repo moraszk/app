@@ -3,7 +3,7 @@
   import Skipper from './Skipper.svelte';
   import Install from './Install.svelte';
   import { theme, amoled } from '$lib/storage/theme';
-  import { status } from '$lib/storage/captive';
+  import { user } from '$lib/storage/captive';
 
   $: fullTheme = $theme == 'dark' ? ($amoled ? 'black' : 'dark') : 'light';
 
@@ -58,7 +58,7 @@
       </a>
     </li>
     <li>
-      <a href="/regisztracio" class="nav-item">
+      <a href="/registration" class="nav-item">
         <CustomPrerender>
           <svg width="32" height="25.6" viewBox="0 0 640 512">
             <path
@@ -119,7 +119,7 @@
         <span class="label">Műholdvevő állomás</span>
       </a>
     </li>
-    <li class:disabled={!$status.username}>
+    <li class:disabled={!$user.username}>
       <a
         href="https://maci.mora.u-szeged.hu"
         target="_blank"
@@ -136,7 +136,7 @@
         <span class="label">Maci</span>
       </a>
     </li>
-    <li class:disabled={!$status.username}>
+    <li class:disabled={!$user.username}>
       <a
         href="https://speedtest.mora.u-szeged.hu"
         target="_blank"
@@ -186,7 +186,7 @@
       </Install>
     </CustomPrerender>
     <li>
-      <a href="/szabalyzat" class="nav-item">
+      <a href="/terms" class="nav-item">
         <CustomPrerender>
           <svg width="32" height="32" viewBox="0 0 512 512">
             <path

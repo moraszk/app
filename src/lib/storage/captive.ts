@@ -1,7 +1,12 @@
 import { browser } from '$app/env';
 import { writable } from 'svelte/store';
 
-interface Status {
+const TIMEOUT_IN_MS = 1000;
+
+const API_USER_URL = 'https://captiveportal.mora.u-szeged.hu/api/status-next.txt';
+const API_BAN_URL = 'https://status.mora.u-szeged.hu/userban-app';
+
+interface User {
   ip: string;
   'logged-in': 'yes' | 'no';
   mac: string;
@@ -10,66 +15,65 @@ interface Status {
   registration: boolean;
 }
 
-interface StatusBan {
+interface Ban {
   'torrent-guys': boolean;
   'many-connections': boolean;
   dns_no_blacklist: boolean;
   ip: string;
 }
 
-// update status every x secs
+// update status every x secs, except when not used
 // set to zero to disable
 export const numSubscribers = writable<number>(0);
 
-export const status = writable<Partial<Status>>({});
-export const statusBan = writable<Partial<StatusBan>>({});
+export const user = writable<Partial<User>>({});
+export const ban = writable<Partial<Ban>>({});
 
-status.subscribe((x) => {
+/**
+ * Save the current status to the store
+ */
+user.subscribe((x: any = {}) => {
   if (browser && 'localStorage' in window) {
-    x.mac && window.localStorage.setItem('mac', x.mac);
-    x.ip && window.localStorage.setItem('ip', x.ip);
-    x.username && window.localStorage.setItem('username', x.username);
+    ['mac', 'ip', 'username'].forEach((key) => x[key] && window.localStorage.setItem(key, x[key]));
   }
 });
 
-let timeout1: NodeJS.Timer;
-let timeout2: NodeJS.Timer;
+let userFetchId = 0;
+let banFetchId = 0;
 
-export async function check() {
-  clearTimeout(timeout1);
-  clearTimeout(timeout2);
+function update() {
+  let fetch1 = ++userFetchId;
+  let fetch2 = ++banFetchId;
 
-  timeout1 = setTimeout(() => status.set({}), 2000);
-  timeout2 = setTimeout(() => statusBan.set({}), 2000);
-
-  fetch('https://captiveportal.mora.u-szeged.hu/api/status-next.txt')
-    .then((x) => x.json())
-    .then((x) => status.set(x))
-    .catch((err) => {
+  async function fetchApi(url: string) {
+    const request = fetch(url);
+    const timeout = new Promise((cb) => setTimeout(cb, TIMEOUT_IN_MS));
+    try {
+      return Promise.race([
+        request.then((r) => r.json()),
+        timeout.then(() => Promise.reject(new Error('Reached timeout while fetching ' + url))),
+      ]);
+    } catch (err) {
       console.error(err);
-      status.set({});
-    })
-    .finally(() => clearTimeout(timeout1));
+      return {};
+    }
+  }
 
-  fetch('https://status.mora.u-szeged.hu/userban-app')
-    .then((x) => x.json())
-    .then((x) => statusBan.set(x))
-    .catch((err) => {
-      console.error(err);
-      statusBan.set({});
-    })
-    .finally(() => clearTimeout(timeout2));
+  return Promise.all([
+    fetchApi(API_USER_URL).then((value) => fetch1 == userFetchId && user.set(value)),
+    fetchApi(API_BAN_URL).then((value) => fetch2 == banFetchId && user.set(value)),
+  ]);
 }
 
-let it: NodeJS.Timer | null;
+let it: NodeJS.Timer | undefined;
 
-numSubscribers.subscribe((sb) => {
-  it && clearInterval(it);
-  if (sb > 0) {
-    check();
-    it = setInterval(check, 15000);
+numSubscribers.subscribe((numSubs) => {
+  clearInterval(it);
+  if (numSubs > 0) {
+    update();
+    it = setInterval(update, 15000);
   } else {
-    status.set({});
-    statusBan.set({});
+    user.set({});
+    ban.set({});
   }
 });

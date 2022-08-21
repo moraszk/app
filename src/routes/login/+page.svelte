@@ -1,11 +1,7 @@
- <script context="module" lang="ts">
-  export const prerender = true;
-</script>
-
 <script lang="ts">
   import { browser } from '$app/env';
   import CustomPrerender from '$lib/CustomPrerender.svelte';
-  import { status, statusBan } from '$lib/storage/captive';
+  import { user, ban } from '$lib/storage/captive';
   import { onMount } from 'svelte';
   import { amoled } from '$lib/storage/theme';
   import Channels from '$lib/channels.svelte';
@@ -17,40 +13,36 @@
     Promise.all([
       import('@shoelace-style/shoelace/dist/components/button/button.js'),
       import('@shoelace-style/shoelace/dist/components/tooltip/tooltip.js'),
-      import('@shoelace-style/shoelace/dist/components/form/form.js'),
       import('@shoelace-style/shoelace/dist/components/alert/alert.js'),
       import('@shoelace-style/shoelace/dist/components/input/input.js'),
     ]).then(() => (loaded = true));
   });
 
   $: state = {
-    ip: $status.ip || $statusBan.ip || (browser && window.localStorage?.getItem('ip')) || '',
-    mac: $status.mac || (browser && window.localStorage?.getItem('mac')) || '',
-    username: $status.username || '',
+    ip: $user.ip || $ban.ip || (browser && window.localStorage?.getItem('ip')) || '',
+    mac: $user.mac || (browser && window.localStorage?.getItem('mac')) || '',
+    username: $user.username || '',
   };
 
   const copy = (text?: string) => {
     'clipboard' in navigator && navigator.clipboard.writeText(text || JSON.stringify(state));
   };
 
-  async function onLogin(e: CustomEvent) {
-    const { formData } = e.detail;
-    const data = new URLSearchParams()
-    data.append('username', formData.get('username'))
-    data.append('password', formData.get('password'))
+  async function onLogin(e: SubmitEvent) {
+    const formData = new FormData(e.target as HTMLFormElement);
+    const data = new URLSearchParams();
+    data.append('username', formData.get('username') as string);
+    data.append('password', formData.get('password') as string);
     error = '';
 
     try {
-      const resp = await fetch(
-        `https://captiveportal.mora.u-szeged.hu/api/login`,
-        {
-          method: 'POST',
-          body: data,
-        }
-      );
+      const resp = await fetch(`https://captiveportal.mora.u-szeged.hu/api/login`, {
+        method: 'POST',
+        body: data,
+      });
       const result = await resp.json();
       error = result.error;
-      status.set(result);
+      user.set(result);
     } catch (err) {
       error = JSON.stringify(err);
       if (error == '{}')
@@ -67,11 +59,16 @@
 
 <div id="main">
   <article class="flex-2">
-    <h1 id="welcome">Üdv {$status.username || 'ismeretlen'}!</h1>
-    {#if !browser || $status['logged-in'] != 'yes'}
-      <sl-form class="form-overview" on:sl-submit={onLogin}>
+    <h1 id="welcome">Üdv {$user.username || 'ismeretlen'}!</h1>
+    {#if !browser || $user['logged-in'] != 'yes'}
+      <form
+        class="form-overview input-validation-required"
+        method="post"
+        target="https://captiveportal.mora.u-szeged.hu/login"
+        on:submit={onLogin}
+      >
         <sl-input
-          value={$status.username || (browser && 'localStorage' in window)
+          value={$user.username || (browser && 'localStorage' in window)
             ? localStorage.getItem('username')
             : ''}
           filled={!$amoled}
@@ -99,7 +96,11 @@
           <span class="material-icons" slot="prefix"> pin </span></sl-input
         >
         <sl-button size="large" variant="warning" submit> Eszköz aktiválása </sl-button>
-        <div><a id="captiveportallink" href="https://captiveportal.mora.u-szeged.hu/login?redirect=no">Gyakran be kell jelentkeznem</div>
+        <div>
+          <a id="captiveportallink" href="https://captiveportal.mora.u-szeged.hu/login?redirect=no"
+            >Gyakran be kell jelentkeznem / regi felulet</a
+          >
+        </div>
 
         <sl-alert
           bind:this={alert}
@@ -109,7 +110,7 @@
         >
           <strong>{error || 'Sikeres bejelentkezés'}</strong>
         </sl-alert>
-      </sl-form>
+      </form>
       <!-- <a href="https://captiveportal.mora.u-szeged.hu">A régi bejelentkező felület</a><br /> -->
     {/if}
     <table>
@@ -128,7 +129,7 @@
                 <CustomPrerender>
                   <span class="material-icons copy-icon">file_copy</span>
                 </CustomPrerender>
-                {#if !$status.ip && !$statusBan.ip}
+                {#if !$user.ip && !$ban.ip}
                   <span
                     class="cached-data"
                     title="Nem sikerült frissíteni, az adat memóriából lett betöltve"
@@ -157,7 +158,7 @@
                 <CustomPrerender>
                   <span class="material-icons copy-icon">file_copy</span>
                 </CustomPrerender>
-                {#if !$status.mac}
+                {#if !$user.mac}
                   <span
                     class="cached-data"
                     title="Nem sikerült frissíteni, az adat memóriából lett betöltve"
@@ -174,25 +175,25 @@
         <tr>
           <td>Tiltások:</td>
           <td>
-            Torrentezés: {#if $statusBan['torrent-guys'] === true}
+            Torrentezés: {#if $ban['torrent-guys'] === true}
               <span style="color: red; font-weight:bold"
                 >Fekete lista!!! A feloldást a <a href="https://support.mora.u-szeged.hu"
                   >support.mora.u-szeged.hu</a
                 > oldalon kérheted!</span
               >
-            {:else if $statusBan['torrent-guys'] === false}
+            {:else if $ban['torrent-guys'] === false}
               <span id="torrent-guys" style="color: green">Tiszta vagy</span>
             {:else}
               <i>Betöltés...</i>
             {/if}
             <br />
-            Túl sok kapcsolat: {#if $statusBan['many-connections'] === true}
+            Túl sok kapcsolat: {#if $ban['many-connections'] === true}
               <span style="color: red; font-weight:bold"
                 >Fekete lista!!! A feloldást a <a href="https://support.mora.u-szeged.hu"
                   >support.mora.u-szeged.hu</a
                 > oldalon kérheted!</span
               >
-            {:else if $statusBan['many-connections'] === false}
+            {:else if $ban['many-connections'] === false}
               <span id="many-connections" style="color: green">Tiszta vagy</span>
             {:else}
               <i>Betöltés...</i>
@@ -200,10 +201,10 @@
           </td>
         </tr>
 
-        {#if $status.username}
+        {#if $user.username}
           <tr>
             <td>Internethasználati idő</td>
-            <td>{$status.uptime || 'frissítés...'}</td>
+            <td>{$user.uptime || 'frissítés...'}</td>
           </tr>
         {/if}
 
@@ -223,7 +224,7 @@
     </table>
 
     <div class="auth-buttons">
-      {#if $status['logged-in'] == 'yes'}
+      {#if $user['logged-in'] == 'yes'}
         <sl-button
           size="large"
           class="button-default"
@@ -253,7 +254,7 @@
   #captiveportallink {
     color: var(--sl-color-neutral-500);
   }
-  sl-form > * {
+  .form-overview > * {
     margin-bottom: 1.2em;
   }
   sl-button {
