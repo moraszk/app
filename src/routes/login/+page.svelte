@@ -68,9 +68,9 @@
         on:submit={onLogin}
       >
         <sl-input
-          value={$user.username || (browser && 'localStorage' in window)
-            ? localStorage.getItem('username')
-            : ''}
+          value={$user.username ||
+            (browser && 'localStorage' in window && localStorage.getItem('username')) ||
+            ''}
           filled={!$amoled}
           name="username"
           variant="text"
