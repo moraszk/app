@@ -61,7 +61,7 @@ function update() {
 
   return Promise.all([
     fetchApi(API_USER_URL).then((value) => fetch1 == userFetchId && user.set(value)),
-    fetchApi(API_BAN_URL).then((value) => fetch2 == banFetchId && user.set(value)),
+    fetchApi(API_BAN_URL).then((value) => fetch2 == banFetchId && ban.set(value)),
   ]);
 }
 
