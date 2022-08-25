@@ -1,5 +1,6 @@
 <script lang="ts">
   import { user } from '$lib/storage/captive';
+  import { CAPTIVEPORTAL_LOGOUT_URL, CAPTIVEPORTAL_EREASE_URL } from '$lib/config';
   import { onMount } from 'svelte';
   onMount(() => {
     import('@shoelace-style/shoelace/dist/components/button/button.js');
@@ -8,11 +9,7 @@
 
 <div class="logout">
   {#if $user['logged-in'] == 'yes'}
-    <sl-button
-      size="large"
-      class="button-default"
-      href="https://captiveportal.mora.u-szeged.hu/logout?redirect=app"
-    >
+    <sl-button size="large" class="button-default" href={CAPTIVEPORTAL_LOGOUT_URL}>
       Kijelentkezés
     </sl-button>
 
@@ -20,7 +17,7 @@
       class="delete-button"
       variant="text"
       size="large"
-      href="https://captiveportal.mora.u-szeged.hu/logout?redirect=app&erase-cookie=on"
+      href={CAPTIVEPORTAL_EREASE_URL}
       on:click={() => 'localStorage' in window && localStorage.clear()}
     >
       <span class="primary"> Eszköz törlése </span>

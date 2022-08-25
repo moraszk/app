@@ -290,7 +290,7 @@
 
       <footer>
         <sl-checkbox name="agree" value="yes" required>
-          Elolvastam és elfogadom a hálózat használati <a target="_blank" href="/szabalyzat"
+          Elolvastam és elfogadom a hálózat használati <a target="_blank" href="/terms"
             >szabályzatot <span class="external-link material-icons">launch</span>
           </a>
         </sl-checkbox>

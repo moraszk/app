@@ -1,10 +1,8 @@
 import { browser } from '$app/env';
+import { USER_API_URL, BAN_API_URL } from '$lib/config';
 import { writable } from 'svelte/store';
 
 const TIMEOUT_IN_MS = 1000;
-
-const API_USER_URL = 'https://captiveportal.mora.u-szeged.hu/api/status-next.txt';
-const API_BAN_URL = 'https://status.mora.u-szeged.hu/userban-app';
 
 interface User {
   ip: string;
@@ -28,6 +26,8 @@ export const numSubscribers = writable<number>(0);
 
 export const user = writable<Partial<User>>({});
 export const ban = writable<Partial<Ban>>({});
+
+export const loaded = writable<boolean>(false);
 
 /**
  * Save the current status to the store
@@ -60,20 +60,29 @@ function update() {
   }
 
   return Promise.all([
-    fetchApi(API_USER_URL).then((value) => fetch1 == userFetchId && user.set(value)),
-    fetchApi(API_BAN_URL).then((value) => fetch2 == banFetchId && ban.set(value)),
+    fetchApi(USER_API_URL).then((value) => {
+      loaded.set(true);
+      if (fetch1 === userFetchId) user.set(value);
+    }),
+    fetchApi(BAN_API_URL).then((value) => {
+      if (fetch2 === banFetchId) ban.set(value);
+    }),
   ]);
 }
 
 let it: NodeJS.Timer | undefined;
+let to: NodeJS.Timeout;
 
 numSubscribers.subscribe((numSubs) => {
   clearInterval(it);
   if (numSubs > 0) {
     update();
+    to = setTimeout(() => loaded.set(true), 5000);
     it = setInterval(update, 15000);
   } else {
     user.set({});
     ban.set({});
+    loaded.set(false);
+    clearTimeout(to);
   }
 });

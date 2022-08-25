@@ -1,5 +1,6 @@
 <script>
   import { page } from '$app/stores';
+  import { CAPTIVEPORTAL_STATUS_PAGE_URL } from '$lib/config';
   $: details = (() => {
     const { error = {}, ...rest } = $page;
     return JSON.stringify(
@@ -33,7 +34,7 @@
       <a href="/">Vissza a főoldalra</a>
     </li>
     <li>
-      <a href="https://captiveportal.mora.u-szeged.hu/status">A régi státuszoldal</a>
+      <a href={CAPTIVEPORTAL_STATUS_PAGE_URL}>A régi státuszoldal</a>
     </li>
   </ul>
 </section>
