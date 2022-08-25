@@ -5,12 +5,12 @@
   import { theme, amoled } from '$lib/storage/theme';
   import { user } from '$lib/storage/captive';
 
-  $: fullTheme = $theme == 'dark' ? ($amoled ? 'black' : 'dark') : 'light';
+  $: fullTheme = $theme === 'dark' ? ($amoled ? 'black' : 'dark') : 'light';
 
   function setTheme(fullTheme: 'light' | 'dark' | 'black') {
-    if (fullTheme == 'light') return theme.set('light');
+    if (fullTheme === 'light') return theme.set('light');
     theme.set('dark');
-    amoled.set(fullTheme == 'black');
+    amoled.set(fullTheme === 'black');
   }
 
   export let open = false;
@@ -202,7 +202,7 @@
       <a
         href=""
         title="light theme"
-        class:active={fullTheme == 'light'}
+        class:active={fullTheme === 'light'}
         on:click={() => setTheme('light')}
       >
         <CustomPrerender>
@@ -218,7 +218,7 @@
       <a
         href=""
         title="dark theme"
-        class:active={fullTheme == 'dark'}
+        class:active={fullTheme === 'dark'}
         on:click={() => setTheme('dark')}
       >
         <CustomPrerender>
@@ -234,7 +234,7 @@
       <a
         href=""
         title="amoled dark theme"
-        class:active={fullTheme == 'black'}
+        class:active={fullTheme === 'black'}
         on:click={() => setTheme('black')}
       >
         <CustomPrerender>

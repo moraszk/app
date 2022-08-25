@@ -8,7 +8,7 @@
 </script>
 
 <div class="logout">
-  {#if $user['logged-in'] == 'yes'}
+  {#if $user['logged-in'] === 'yes'}
     <sl-button size="large" class="button-default" href={CAPTIVEPORTAL_LOGOUT_URL}>
       Kijelentkezés
     </sl-button>

@@ -23,7 +23,7 @@
     }
     loaded = true;
   };
-  const isEmpty = (o: Object) => Object.keys(o).length == 0;
+  const isEmpty = (o: Object) => Object.keys(o).length === 0;
 
   onMount(() => {
     import('@shoelace-style/shoelace/dist/components/progress-bar/progress-bar.js');

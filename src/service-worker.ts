@@ -53,7 +53,7 @@ async function fetchAndCache(request: Request) {
   const cache = await caches.open(`offline${version}`);
   const url = new URL(request.url);
 
-  if (url.host == worker.location.host && request.mode == 'navigate')
+  if (url.host === worker.location.host && request.mode === 'navigate')
     return fetchPage(request, url);
 
   try {
