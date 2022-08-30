@@ -46,7 +46,7 @@
   </ul>
   <ul class="nav-items" on:click={() => (open = false)}>
     <li>
-      <a href="/" class="nav-item">
+      <a href="/login" class="nav-item">
         <CustomPrerender>
           <svg width="32" height="25.6" viewBox="0 0 640 512">
             <path
@@ -58,7 +58,7 @@
       </a>
     </li>
     <li>
-      <a href="/registration" class="nav-item">
+      <a href="/user" class="nav-item">
         <CustomPrerender>
           <svg width="32" height="25.6" viewBox="0 0 640 512">
             <path
@@ -67,7 +67,7 @@
           </svg>
         </CustomPrerender>
 
-        <span class="label">Regisztráció</span>
+        <span class="label">Fiók kezelése</span>
       </a>
     </li>
     <li>
@@ -116,7 +116,7 @@
             /><path d="m 61.23 12.12 l 130.15 130.15 l -47.34 47.34 l -130.15 -130.15 z" />
           </svg>
         </CustomPrerender>
-        <span class="label">Műholdvevő állomás</span>
+        <span class="label">Műholdvevő</span>
       </a>
     </li>
     <li class:disabled={!$user.username}>

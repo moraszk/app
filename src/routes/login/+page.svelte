@@ -14,9 +14,10 @@
 
 <div id="main">
   <article class="flex-2">
-    <h1 id="welcome">Üdv {$user.username || 'ismeretlen'}!</h1>
     {#if !browser || $user['logged-in'] != 'yes'}
       <LoginForm />
+    {:else}
+      <h1>Üdv {$user.username}!</h1>
     {/if}
 
     <UserInfo />
