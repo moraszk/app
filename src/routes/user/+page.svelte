@@ -1,5 +1,6 @@
 <script lang="ts">
   import Register from './register.svelte';
+  import Recover from './recover.svelte';
   import type { ApiResult } from './api';
   import { onMount } from 'svelte';
   import type SlAlert from '@shoelace-style/shoelace/dist/components/alert/alert.js';
@@ -39,3 +40,4 @@
 </sl-alert>
 
 <Register bind:error {alert} {loading} />
+<Recover bind:error {alert} {loading} />

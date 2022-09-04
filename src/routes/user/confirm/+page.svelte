@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { page } from '$app/stores';
   import {} from '$app/paths';
   import type { ApiResult } from '../api';
   import { onMount } from 'svelte';
@@ -30,9 +29,20 @@
 
   let token = '';
   let password = '';
+  let passwordConfirm = '';
+
+  const parseJwt = (token: string) => {
+    try {
+      return JSON.parse(atob(token.split('.')[1] as any));
+    } catch (e) {
+      return null;
+    }
+  };
+
+  $: jwt = parseJwt(token);
 
   onMount(() => {
-    token = $page.url.searchParams.get('token') || '';
+    token = new URL(window.location.href).searchParams.get('token') || '';
   });
 
   async function onSubmit(e: Event) {
@@ -42,6 +52,7 @@
       JSON.stringify({
         token,
         password,
+        password_confirm: passwordConfirm,
       })
     );
 
@@ -73,11 +84,9 @@
       action={CONFIRM_URL}
       on:submit={onSubmit}
     >
-
       <SlInput
         bind:value={token}
         defaultValue={token}
-        disabled={browser && !!token}
         bind:error
         filled={!$amoled}
         name="token"
@@ -86,6 +95,32 @@
         label="Token"
         icon="pin"
       />
+
+      {#if jwt}
+        <SlInput
+          value={jwt.username}
+          bind:error
+          disabled
+          filled={!$amoled}
+          name="token"
+          type="text"
+          autocomplete="off"
+          label="Felhasználónév"
+          icon="pin"
+        />
+
+        <SlInput
+          value={jwt.email}
+          bind:error
+          disabled
+          filled={!$amoled}
+          name="token"
+          type="text"
+          autocomplete="off"
+          label="Felhasználónév"
+          icon="pin"
+        />
+      {/if}
 
       <SlInput
         bind:value={password}
@@ -96,6 +131,18 @@
         autocomplete="on"
         toggle-password
         label="Jelszó"
+        icon="pin"
+      />
+
+      <SlInput
+        bind:value={passwordConfirm}
+        bind:error
+        filled={!$amoled}
+        type="password"
+        name="password_confirm"
+        autocomplete="on"
+        toggle-password
+        label="Jelszó újra"
         icon="pin"
       />
 
