@@ -4,56 +4,29 @@ export interface ApiResult {
   fields?: { [key: string]: { code: string; message: string; params: string }[] };
 }
 
-export const REGISTER_URL = 'https://user.mora.u-szeged.hu/user';
-
-// export const REGISTER_URL = 'http://localhost:8080/user';
-
-export const RECOVER_URL = 'https://user.mora.u-szeged.hu/user/recover';
-export const CONFIRM_URL = 'https://user.mora.u-szeged.hu/user/confirm';
-
+export const REGISTER_URL = 'https://app.mora.u-szeged.hu/api/user';
 export async function register(json: string): Promise<ApiResult> {
   return fetch(REGISTER_URL, {
-    method: 'POST',
+    method: 'PUT',
     body: json,
     headers: {
       'Content-Type': 'application/json',
     },
   })
-    .then((res) => parse(res, { successMessage: 'Ellenőrizd az emailedet' }))
-    .catch((err) => {
-      console.error(err);
-      return { success: false, message: 'Nem sikerült csatlakozni a szerverhez' };
-    });
-}
-
-export async function confirm(json: string): Promise<ApiResult> {
-  return fetch(CONFIRM_URL, {
-    method: 'POST',
-    body: json,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((res) => parse(res, { successMessage: 'Sikeres regisztráció' }))
-    .catch((err) => {
-      console.error(err);
-      return { success: false, message: 'Nem sikerült csatlakozni a szerverhez' };
-    });
-}
-
-export async function recover(json: string): Promise<ApiResult> {
-  return fetch(RECOVER_URL, {
-    method: 'POST',
-    body: json,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((res) => parse(res, { successMessage: 'Ellenőrizd az emailedet' }))
-    .catch((err) => {
-      console.error(err);
-      return { success: false, message: 'Nem sikerült csatlakozni a szerverhez' };
-    });
+    .then((res) =>
+      parse(res, {
+        successMessage: 'Sikeresen regisztráltál a félévre!',
+      })
+    )
+    .catch(
+      (err) => (
+        console.error(err),
+        {
+          success: false,
+          message: 'Nem sikerült csatlakozni a szerverhez',
+        }
+      )
+    );
 }
 
 async function parse(res: Response, { successMessage = 'Sikeres művelet' }) {

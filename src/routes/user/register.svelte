@@ -11,9 +11,10 @@
 
   let username = '';
   let firstname = '';
-  let surname = '';
+  let lastname = '';
   let roomid = '';
   let email = '';
+  let password = '';
   let terms = false;
 
   async function onRegister(e: Event) {
@@ -21,12 +22,15 @@
 
     error = await register(
       JSON.stringify({
-        username,
-        firstname,
-        surname,
-        roomid,
-        email,
-        terms: terms ? 'on' : 'off',
+        form: {
+          username,
+          firstname,
+          lastname,
+          roomid,
+          email,
+          password,
+          terms: terms ? 'on' : 'off',
+        },
       })
     );
 
@@ -72,7 +76,7 @@
       />
 
       <SlInput
-        bind:value={surname}
+        bind:value={lastname}
         bind:error
         filled={!$amoled}
         name="surname"
@@ -93,6 +97,17 @@
         <span class="material-icons" slot="prefix"> place </span>
         <Rooms />
       </SlInput>
+
+      <SlInput
+        bind:value={password}
+        bind:error
+        filled={!$amoled}
+        name="password"
+        autocomplete="on"
+        label="jelszó"
+        type="password"
+        icon="lock"
+      />
 
       <SlInput
         bind:value={email}
