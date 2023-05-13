@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { browser } from '$app/env';
+  import { browser } from '$app/environment';
   import { user, ban } from '$lib/storage/captive';
   import CustomPrerender from '$lib/CustomPrerender.svelte';
   import { onMount } from 'svelte';
