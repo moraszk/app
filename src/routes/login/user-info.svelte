@@ -114,7 +114,6 @@
           <li>Juhász Andor (V/14),</li>
           <li>Kiss Ádám (III/S),</li>
           <li>Kiszel Pál (I/5),</li>
-          <li>Südi Tamás (I/4),</li>
           <li>Tajti Viktor (V/14)</li>
         </ul>
       </td>
