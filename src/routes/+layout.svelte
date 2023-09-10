@@ -6,8 +6,8 @@
   import Nav from '$lib/Nav/index.svelte';
   import Preload from '$lib/Preload.svelte';
   import FillAvailable from '$lib/FillAvailable.svelte';
-  import { goto } from '$app/navigation';
   import StatusUpdate from '$lib/StatusUpdate.svelte';
+  import { goto } from '$app/navigation';
 
   $: browser &&
     window.location.pathname.endsWith('/') &&
@@ -16,11 +16,13 @@
   onMount(() => import('@webcomponents/webcomponentsjs/webcomponents-bundle.js'));
 </script>
 
-<StatusUpdate />
 <FillAvailable />
-<Preload />
+<StatusUpdate />
 <Theme />
+<Preload />
+
 <Nav />
+
 <main id="main-content">
   <slot />
 </main>
@@ -60,11 +62,11 @@
       margin-bottom: 0;
     }
   }
-  @media screen and (min-width: $br-lg) {
-    main {
-      //   margin-right: 5rem;
-    }
-  }
+  // @media screen and (min-width: $br-lg) {
+  //   main {
+  //     //   margin-right: 5rem;
+  //   }
+  // }
   @media screen and (min-width: $br-xl) {
     main {
       margin-left: 16rem;

@@ -2,14 +2,14 @@
 <script lang="ts">
   import { browser } from '$app/env';
   import { goto } from '$app/navigation';
-  import { status } from '$lib/storage/captive';
+  import { user } from '$lib/storage/captive';
   import { onMount, onDestroy } from 'svelte';
   let link = browser
     ? (() => {
         const u = new URL(window.location.href);
         u.pathname = u.searchParams.get('redirect') ?? '/';
         u.search = '';
-        return u.href;
+        return u.href === window.location.href ? '/' : u.href;
       })()
     : '';
 
@@ -23,12 +23,12 @@
     }
     loaded = true;
   };
-  const isEmpty = (o: Object) => Object.keys(o).length == 0;
+  const isEmpty = (o: Object) => Object.keys(o).length === 0;
 
   onMount(() => {
     import('@shoelace-style/shoelace/dist/components/progress-bar/progress-bar.js');
-    status.subscribe((x) => {
-      if (!isEmpty(x)) onLoaded();
+    user.subscribe((u) => {
+      if (!isEmpty(u)) onLoaded();
     });
     timer = setTimeout(onLoaded, 5000);
   });

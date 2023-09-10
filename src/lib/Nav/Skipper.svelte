@@ -1,3 +1,5 @@
+<!-- This skipper helps people without access to a mouse to navigate the website. -->
+
 <a href="#main-content">Ugrás a tartalomra</a>
 
 <style>

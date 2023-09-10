@@ -1,9 +1,9 @@
 <script lang="ts">
   import { browser } from '$app/env';
   import { theme, amoled } from '$lib/storage/theme';
-  $: browser && document.body.classList.toggle('sl-theme-dark', $theme == 'dark');
+  $: browser && document.body.classList.toggle('sl-theme-dark', $theme === 'dark');
   $: browser && document.body.classList.toggle('black', $amoled);
-  $: themeColor = $theme == 'light' ? '#ffffff' : $amoled ? '#000000' : '#0d1117';
+  $: themeColor = $theme === 'light' ? '#ffffff' : $amoled ? '#000000' : '#0d1117';
 </script>
 
 <svelte:head>

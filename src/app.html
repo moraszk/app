@@ -11,7 +11,7 @@
     />
     <link rel="icon" href="/icon/icon-72x72.png" />
     <link rel="manifest" href="/manifest.json" />
-    %svelte.head%
+    %sveltekit.head%
   </head>
   <body class="preload">
     <noscript id="noscript">
@@ -30,9 +30,13 @@
       <!-- <meta http-equiv="refresh" content="5; url='https://captiveportal.mora.u-szeged.hu'"> -->
     </noscript>
     <script nomodule>
-      document.getElementById('noscript').outerHTML = unescape(document.getElementById('noscript').innerText);
-      alert("A bongeszod nem tamogatott. A https://captiveportal.mora.u-szeged.hu/status tudod megnezni az eszkozod allapotat.")
+      document.getElementById('noscript').outerHTML = unescape(
+        document.getElementById('noscript').innerText
+      );
+      alert(
+        'A bongeszod nem tamogatott. A https://captiveportal.mora.u-szeged.hu/status tudod megnezni az eszkozod allapotat.'
+      );
     </script>
-    <div id="svelte">%svelte.body%</div>
+    <div id="svelte">%sveltekit.body%</div>
   </body>
 </html>

@@ -3,14 +3,14 @@
   import Skipper from './Skipper.svelte';
   import Install from './Install.svelte';
   import { theme, amoled } from '$lib/storage/theme';
-  import { status } from '$lib/storage/captive';
+  import { user } from '$lib/storage/captive';
 
-  $: fullTheme = $theme == 'dark' ? ($amoled ? 'black' : 'dark') : 'light';
+  $: fullTheme = $theme === 'dark' ? ($amoled ? 'black' : 'dark') : 'light';
 
   function setTheme(fullTheme: 'light' | 'dark' | 'black') {
-    if (fullTheme == 'light') return theme.set('light');
+    if (fullTheme === 'light') return theme.set('light');
     theme.set('dark');
-    amoled.set(fullTheme == 'black');
+    amoled.set(fullTheme === 'black');
   }
 
   export let open = false;
@@ -46,7 +46,7 @@
   </ul>
   <ul class="nav-items" on:click={() => (open = false)}>
     <li>
-      <a href="/" class="nav-item">
+      <a href="/login" class="nav-item">
         <CustomPrerender>
           <svg width="32" height="25.6" viewBox="0 0 640 512">
             <path
@@ -58,7 +58,7 @@
       </a>
     </li>
     <li>
-      <a href="/regisztracio" class="nav-item">
+      <a href="/user" class="nav-item">
         <CustomPrerender>
           <svg width="32" height="25.6" viewBox="0 0 640 512">
             <path
@@ -67,61 +67,10 @@
           </svg>
         </CustomPrerender>
 
-        <span class="label">Regisztráció</span>
+        <span class="label">Fiók kezelése</span>
       </a>
     </li>
     <li>
-      <a
-        href="https://zulip.mora.u-szeged.hu"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="nav-item"
-      >
-        <CustomPrerender>
-          <svg width="32" height="25.6" viewBox="0 0 640 512">
-            <path
-              d="M192 256c61.9 0 112-50.1 112-112S253.9 32 192 32 80 82.1 80 144s50.1 112 112 112zm76.8 32h-8.3c-20.8 10-43.9 16-68.5 16s-47.6-6-68.5-16h-8.3C51.6 288 0 339.6 0 403.2V432c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48v-28.8c0-63.6-51.6-115.2-115.2-115.2zM480 256c53 0 96-43 96-96s-43-96-96-96-96 43-96 96 43 96 96 96zm48 32h-3.8c-13.9 4.8-28.6 8-44.2 8s-30.3-3.2-44.2-8H432c-20.4 0-39.2 5.9-55.7 15.4 24.4 26.3 39.7 61.2 39.7 99.8v38.4c0 2.2-.5 4.3-.6 6.4H592c26.5 0 48-21.5 48-48 0-61.9-50.1-112-112-112z"
-            />
-          </svg>
-        </CustomPrerender>
-        <span class="label">Zulip</span>
-      </a>
-    </li>
-    <li class:disabled={!$status.username}>
-      <a
-        href="https://maci.mora.u-szeged.hu"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="nav-item"
-      >
-        <CustomPrerender>
-          <svg width="32" height="28.444444444444443" viewBox="0 0 576 512">
-            <path
-              d="M336.2 64H47.8C21.4 64 0 85.4 0 111.8v288.4C0 426.6 21.4 448 47.8 448h288.4c26.4 0 47.8-21.4 47.8-47.8V111.8c0-26.4-21.4-47.8-47.8-47.8zm189.4 37.7L416 177.3v157.4l109.6 75.5c21.2 14.6 50.4-.3 50.4-25.8V127.5c0-25.4-29.1-40.4-50.4-25.8z"
-            />
-          </svg>
-        </CustomPrerender>
-        <span class="label">Maci</span>
-      </a>
-    </li>
-    <li class:disabled={!$status.username}>
-      <a
-        href="https://speedtest.mora.u-szeged.hu"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="nav-item"
-      >
-        <CustomPrerender>
-          <svg width="32" height="25.6" viewBox="0 0 640 512">
-            <path
-              d="M592.604 208.244C559.735 192.836 515.777 184 472 184H186.327c-4.952-6.555-10.585-11.978-16.72-16H376C229.157 137.747 219.403 32 96.003 32H96v128H80V32c-26.51 0-48 28.654-48 64v64c-23.197 0-32 10.032-32 24v40c0 13.983 8.819 24 32 24v16c-23.197 0-32 10.032-32 24v40c0 13.983 8.819 24 32 24v64c0 35.346 21.49 64 48 64V352h16v128h.003c123.4 0 133.154-105.747 279.997-136H169.606c6.135-4.022 11.768-9.445 16.72-16H472c43.777 0 87.735-8.836 120.604-24.244C622.282 289.845 640 271.992 640 256s-17.718-33.845-47.396-47.756zM488 296a8 8 0 0 1-8-8v-64a8 8 0 0 1 8-8c31.909 0 31.942 80 0 80z"
-            />
-          </svg>
-        </CustomPrerender>
-        <span class="label">Speedtest</span>
-      </a>
-    </li>
-    <li class:disabled={!$status.username}>
       <a
         href="https://support.mora.u-szeged.hu"
         class="nav-item"
@@ -138,22 +87,70 @@
         <span class="label">Support</span>
       </a>
     </li>
-    <li class:disabled={!$status.username}>
+    <li>
       <a
-        href="https://drive.mora.u-szeged.hu"
-        class="nav-item"
+        href="https://gnd.mora.u-szeged.hu"
         target="_blank"
         rel="noopener noreferrer"
+        class="nav-item"
       >
         <CustomPrerender>
-          <svg width="32" height="28.444444444444443" viewBox="0 0 576 512"
-            ><path
-              id="path-0"
-              d="M576 304v96c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48v-96c0-26.51 21.49-48 48-48h480c26.51 0 48 21.49 48 48zm-48-80a79.557 79.557 0 0 1 30.777 6.165L462.25 85.374A48.003 48.003 0 0 0 422.311 64H153.689a48 48 0 0 0-39.938 21.374L17.223 230.165A79.557 79.557 0 0 1 48 224h480zm-48 96c-17.673 0-32 14.327-32 32s14.327 32 32 32 32-14.327 32-32-14.327-32-32-32zm-96 0c-17.673 0-32 14.327-32 32s14.327 32 32 32 32-14.327 32-32-14.327-32-32-32z"
+          <svg width="32" height="25.6" viewBox="0 0 640 512">
+            <path d="m 353.5 306.76 l -44.778 45.502" /><path
+              d="m 309.72 262.98 l -46.966 46.24"
+            /><path d="m 267.12 218.02 l 130.15 130.15 l -47.34 47.34 l -130.15 -130.15 z" /><path
+              d="m 244.64 231.03 l -14.2 14.2"
+            /><path d="m 178.37 164.77 l -14.2 14.2" /><g
+              fill="none"
+              stroke="#000"
+              stroke-width="16"
+              ><path d="m 12.721 285.46 c 9.814 66.54 50.27 100.88 112.41 112.41" /><path
+                d="m 60.05 285.46 c 5.472 38.03 25 59.948 65.08 65.08"
+              /><path d="m 95.55 285.46 c 5.632 20.687 16.601 27.37 29.581 29.581" /></g
+            ><path d="m 145.24 240.49 l -17.749 41.41 l 41.41 -17.749" /><path
+              d="m 197.7 290.05 c -8.169 8.169 -32.01 -2.426 -53.25 -23.666 -21.241 -21.241 -31.834 -45.08 -23.666 -53.25 8.169 -8.169 32.01 2.426 53.25 23.666 21.241 21.241 31.834 45.08 23.666 53.25 z"
+            /><path
+              d="m 209.14 143.46 l 10.738 10.56 l 5.829 -5.829 l 35.498 35.498 l -5.917 5.917 l 11.832 11.832 l -63.07 62.21 l -58.13 -58.13 z"
+            /><path d="m 147.61 100.86 l -45.87 45.87" /><path
+              d="m 103.83 57.08 l -45.772 45.502"
+            /><path d="m 61.23 12.12 l 130.15 130.15 l -47.34 47.34 l -130.15 -130.15 z" />
+          </svg>
+        </CustomPrerender>
+        <span class="label">Műholdvevő</span>
+      </a>
+    </li>
+    <li class:disabled={!$user.username}>
+      <a
+        href="https://maci.mora.u-szeged.hu"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="nav-item"
+      >
+        <CustomPrerender>
+          <svg width="32" height="28.444444444444443" viewBox="0 0 576 512">
+            <path
+              d="M336.2 64H47.8C21.4 64 0 85.4 0 111.8v288.4C0 426.6 21.4 448 47.8 448h288.4c26.4 0 47.8-21.4 47.8-47.8V111.8c0-26.4-21.4-47.8-47.8-47.8zm189.4 37.7L416 177.3v157.4l109.6 75.5c21.2 14.6 50.4-.3 50.4-25.8V127.5c0-25.4-29.1-40.4-50.4-25.8z"
             />
           </svg>
         </CustomPrerender>
-        <span class="label">Tárhely</span>
+        <span class="label">Maci</span>
+      </a>
+    </li>
+    <li class:disabled={!$user.username}>
+      <a
+        href="https://speedtest.mora.u-szeged.hu"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="nav-item"
+      >
+        <CustomPrerender>
+          <svg width="32" height="25.6" viewBox="0 0 640 512">
+            <path
+              d="M592.604 208.244C559.735 192.836 515.777 184 472 184H186.327c-4.952-6.555-10.585-11.978-16.72-16H376C229.157 137.747 219.403 32 96.003 32H96v128H80V32c-26.51 0-48 28.654-48 64v64c-23.197 0-32 10.032-32 24v40c0 13.983 8.819 24 32 24v16c-23.197 0-32 10.032-32 24v40c0 13.983 8.819 24 32 24v64c0 35.346 21.49 64 48 64V352h16v128h.003c123.4 0 133.154-105.747 279.997-136H169.606c6.135-4.022 11.768-9.445 16.72-16H472c43.777 0 87.735-8.836 120.604-24.244C622.282 289.845 640 271.992 640 256s-17.718-33.845-47.396-47.756zM488 296a8 8 0 0 1-8-8v-64a8 8 0 0 1 8-8c31.909 0 31.942 80 0 80z"
+            />
+          </svg>
+        </CustomPrerender>
+        <span class="label">Speedtest</span>
       </a>
     </li>
     <li>
@@ -189,7 +186,7 @@
       </Install>
     </CustomPrerender>
     <li>
-      <a href="/szabalyzat" class="nav-item">
+      <a href="/terms" class="nav-item">
         <CustomPrerender>
           <svg width="32" height="32" viewBox="0 0 512 512">
             <path
@@ -205,7 +202,7 @@
       <a
         href=""
         title="light theme"
-        class:active={fullTheme == 'light'}
+        class:active={fullTheme === 'light'}
         on:click={() => setTheme('light')}
       >
         <CustomPrerender>
@@ -221,7 +218,7 @@
       <a
         href=""
         title="dark theme"
-        class:active={fullTheme == 'dark'}
+        class:active={fullTheme === 'dark'}
         on:click={() => setTheme('dark')}
       >
         <CustomPrerender>
@@ -237,7 +234,7 @@
       <a
         href=""
         title="amoled dark theme"
-        class:active={fullTheme == 'black'}
+        class:active={fullTheme === 'black'}
         on:click={() => setTheme('black')}
       >
         <CustomPrerender>
