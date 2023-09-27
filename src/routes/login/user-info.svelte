@@ -112,7 +112,6 @@
         <ul class="admins">
           <li>Erős Bálint (I/4),</li>
           <li>Juhász Andor (V/14),</li>
-          <li>Kiss Ádám (III/S),</li>
           <li>Kiszel Pál (I/5),</li>
           <li>Tajti Viktor (V/14)</li>
         </ul>
