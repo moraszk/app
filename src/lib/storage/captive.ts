@@ -1,4 +1,4 @@
-import { browser } from '$app/env';
+import { browser } from '$app/environment';
 import { USER_API_URL, BAN_API_URL } from '$lib/config';
 import { writable } from 'svelte/store';
 

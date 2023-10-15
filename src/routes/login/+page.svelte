@@ -3,7 +3,7 @@
   import UserInfo from './user-info.svelte';
   import LogoutForm from './logout-form.svelte';
 
-  import { browser } from '$app/env';
+  import { browser } from '$app/environment';
   import { user } from '$lib/storage/captive';
   import Channels from '$lib/channels.svelte';
 </script>

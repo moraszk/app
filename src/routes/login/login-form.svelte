@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { browser } from '$app/env';
+  import { browser } from '$app/environment';
   import { amoled } from '$lib/storage/theme';
   import { user, loaded } from '$lib/storage/captive';
   import { onMount } from 'svelte';

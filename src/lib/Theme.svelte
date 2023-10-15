@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { browser } from '$app/env';
+  import { browser } from '$app/environment';
   import { theme, amoled } from '$lib/storage/theme';
   $: browser && document.body.classList.toggle('sl-theme-dark', $theme === 'dark');
   $: browser && document.body.classList.toggle('black', $amoled);
