@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { browser } from '$app/env';
+  import { browser } from '$app/environment';
   import '../app.scss';
   import Theme from '$lib/Theme.svelte';
   import Nav from '$lib/Nav/index.svelte';

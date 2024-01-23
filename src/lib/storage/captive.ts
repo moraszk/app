@@ -1,4 +1,4 @@
-import { browser } from '$app/env';
+import { browser } from '$app/environment';
 import { USER_API_URL, BAN_API_URL } from '$lib/config';
 import { writable } from 'svelte/store';
 
@@ -42,8 +42,8 @@ let userFetchId = 0;
 let banFetchId = 0;
 
 function update() {
-  let fetch1 = ++userFetchId;
-  let fetch2 = ++banFetchId;
+  const fetch1 = ++userFetchId;
+  const fetch2 = ++banFetchId;
 
   async function fetchApi(url: string) {
     const request = fetch(url);
@@ -70,8 +70,8 @@ function update() {
   ]);
 }
 
-let it: NodeJS.Timer | undefined;
-let to: NodeJS.Timeout;
+let it: number | undefined;
+let to: number;
 
 numSubscribers.subscribe((numSubs) => {
   clearInterval(it);

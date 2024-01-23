@@ -4,7 +4,8 @@
   font-style: normal;
   font-display: swap;
   font-weight: 400;
-  src: url('/fonts/material-icons-base-400-normal.woff2') format('woff2'),
+  src:
+    url('/fonts/material-icons-base-400-normal.woff2') format('woff2'),
     url('/fonts/material-icons-base-400-normal.woff') format('woff');
 }
 .material-icons {
@@ -29,7 +30,9 @@
   font-style: normal;
   font-display: swap;
   font-weight: 100;
-  src: local('Roboto Thin '), local('Roboto-Thin'),
+  src:
+    local('Roboto Thin '),
+    local('Roboto-Thin'),
     url(/fonts/roboto-latin-100.woff2) format('woff2'),
     url(/fonts/roboto-latin-100.woff) format('woff');
 }
@@ -39,7 +42,9 @@
   font-style: italic;
   font-display: swap;
   font-weight: 100;
-  src: local('Roboto Thin italic'), local('Roboto-Thinitalic'),
+  src:
+    local('Roboto Thin italic'),
+    local('Roboto-Thinitalic'),
     url(/fonts/roboto-latin-100italic.woff2) format('woff2'),
     url(/fonts/roboto-latin-100italic.woff) format('woff');
 }
@@ -49,7 +54,9 @@
   font-style: normal;
   font-display: swap;
   font-weight: 300;
-  src: local('Roboto Light '), local('Roboto-Light'),
+  src:
+    local('Roboto Light '),
+    local('Roboto-Light'),
     url(/fonts/roboto-latin-300.woff2) format('woff2'),
     url(/fonts/roboto-latin-300.woff) format('woff');
 }
@@ -59,7 +66,9 @@
   font-style: italic;
   font-display: swap;
   font-weight: 300;
-  src: local('Roboto Light italic'), local('Roboto-Lightitalic'),
+  src:
+    local('Roboto Light italic'),
+    local('Roboto-Lightitalic'),
     url(/fonts/roboto-latin-300italic.woff2) format('woff2'),
     url(/fonts/roboto-latin-300italic.woff) format('woff');
 }
@@ -69,7 +78,9 @@
   font-style: normal;
   font-display: swap;
   font-weight: 400;
-  src: local('Roboto Regular '), local('Roboto-Regular'),
+  src:
+    local('Roboto Regular '),
+    local('Roboto-Regular'),
     url(/fonts/roboto-latin-400.woff2) format('woff2'),
     url(/fonts/roboto-latin-400.woff) format('woff');
 }
@@ -79,7 +90,9 @@
   font-style: italic;
   font-display: swap;
   font-weight: 400;
-  src: local('Roboto Regular italic'), local('Roboto-Regularitalic'),
+  src:
+    local('Roboto Regular italic'),
+    local('Roboto-Regularitalic'),
     url(/fonts/roboto-latin-400italic.woff2) format('woff2'),
     url(/fonts/roboto-latin-400italic.woff) format('woff');
 }
@@ -89,7 +102,9 @@
   font-style: normal;
   font-display: swap;
   font-weight: 500;
-  src: local('Roboto Medium '), local('Roboto-Medium'),
+  src:
+    local('Roboto Medium '),
+    local('Roboto-Medium'),
     url(/fonts/roboto-latin-500.woff2) format('woff2'),
     url(/fonts/roboto-latin-500.woff) format('woff');
 }
@@ -99,7 +114,9 @@
   font-style: italic;
   font-display: swap;
   font-weight: 500;
-  src: local('Roboto Medium italic'), local('Roboto-Mediumitalic'),
+  src:
+    local('Roboto Medium italic'),
+    local('Roboto-Mediumitalic'),
     url(/fonts/roboto-latin-500italic.woff2) format('woff2'),
     url(/fonts/roboto-latin-500italic.woff) format('woff');
 }
@@ -109,7 +126,9 @@
   font-style: normal;
   font-display: swap;
   font-weight: 700;
-  src: local('Roboto Bold '), local('Roboto-Bold'),
+  src:
+    local('Roboto Bold '),
+    local('Roboto-Bold'),
     url(/fonts/roboto-latin-700.woff2) format('woff2'),
     url(/fonts/roboto-latin-700.woff) format('woff');
 }
@@ -119,7 +138,9 @@
   font-style: italic;
   font-display: swap;
   font-weight: 700;
-  src: local('Roboto Bold italic'), local('Roboto-Bolditalic'),
+  src:
+    local('Roboto Bold italic'),
+    local('Roboto-Bolditalic'),
     url(/fonts/roboto-latin-700italic.woff2) format('woff2'),
     url(/fonts/roboto-latin-700italic.woff) format('woff');
 }
@@ -129,7 +150,9 @@
   font-style: normal;
   font-display: swap;
   font-weight: 900;
-  src: local('Roboto Black '), local('Roboto-Black'),
+  src:
+    local('Roboto Black '),
+    local('Roboto-Black'),
     url(/fonts/roboto-latin-900.woff2) format('woff2'),
     url(/fonts/roboto-latin-900.woff) format('woff');
 }
@@ -139,7 +162,9 @@
   font-style: italic;
   font-display: swap;
   font-weight: 900;
-  src: local('Roboto Black italic'), local('Roboto-Blackitalic'),
+  src:
+    local('Roboto Black italic'),
+    local('Roboto-Blackitalic'),
     url(/fonts/roboto-latin-900italic.woff2) format('woff2'),
     url(/fonts/roboto-latin-900italic.woff) format('woff');
 }

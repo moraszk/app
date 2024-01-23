@@ -2,7 +2,7 @@
   import { onDestroy, onMount } from 'svelte';
   let csatornalista: any = {};
 
-  let int: NodeJS.Timer;
+  let int: number;
   const update = () => {
     fetch('https://iptv.mora.u-szeged.hu/csatornalista.json')
       .then((response) => response.json())

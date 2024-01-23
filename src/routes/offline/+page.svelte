@@ -1,6 +1,6 @@
 <!-- The service worker responds with this file, when offline -->
 <script lang="ts">
-  import { browser } from '$app/env';
+  import { browser } from '$app/environment';
   import { goto } from '$app/navigation';
   import { user } from '$lib/storage/captive';
   import { onMount, onDestroy } from 'svelte';
@@ -13,7 +13,7 @@
       })()
     : '';
 
-  let timer: NodeJS.Timer;
+  let timer: number;
 
   let loaded = false;
 
