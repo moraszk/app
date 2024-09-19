@@ -107,12 +107,14 @@
     {/if}
 
     <tr>
-      <td>Rendszergazdák ábécében</td>
+      <td>Rendszergazdák</td>
       <td>
         <ul class="admins">
           <li>Erős Bálint (I/4),</li>
-          <li>Juhász Andor (V/14),</li>
           <li>Kiszel Pál (I/5),</li>
+          <li>Báló Andor (I/7)</li>
+          <lI>Lukács Ákos (I/7)</lI>
+          <li>Juhász Andor (V/14),</li>
           <li>Tajti Viktor (V/14)</li>
         </ul>
       </td>
